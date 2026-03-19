@@ -1,5 +1,3 @@
-import { MainPage } from "@/pages";
-
 export default function Home() {
-  return <MainPage />;
+  return <div>Home Page</div>;
 }
