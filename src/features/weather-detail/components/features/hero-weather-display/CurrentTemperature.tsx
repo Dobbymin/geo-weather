@@ -1,18 +1,22 @@
-import { Sun } from "lucide-react";
+import { type WeatherStatus, getWeatherIcon } from "@/entities/weather";
+import { cn } from "@/shared";
 
 type Props = {
   date: string;
   currentTemp: number;
   condition: string;
   conditionEn: string;
+  status: WeatherStatus;
 };
 
-export const CurrentTemperature = ({ date, currentTemp, condition, conditionEn }: Props) => {
+export const CurrentTemperature = ({ date, currentTemp, condition, conditionEn, status }: Props) => {
+  const { icon: Icon, color } = getWeatherIcon(status);
+
   return (
     <div className='relative z-10 flex flex-col gap-2'>
       <div className='flex items-center gap-3'>
-        <div className='text-[#0069dc]'>
-          <Sun size={24} />
+        <div className={cn("shrink-0", color)}>
+          <Icon size={24} />
         </div>
         <p className='font-semibold text-[#5b5f64]'>{date}</p>
       </div>

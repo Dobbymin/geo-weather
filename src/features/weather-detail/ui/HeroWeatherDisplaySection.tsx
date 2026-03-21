@@ -1,8 +1,21 @@
+import { type WeatherStatus } from "@/entities/weather";
 import { CurrentTemperature, DecorativeBackground, StatsFooter } from "../components";
 
-const MOCK_WEATHER_DATA = {
+const MOCK_WEATHER_DATA: {
+  date: string;
+  currentTemp: number;
+  status: WeatherStatus;
+  condition: string;
+  conditionEn: string;
+  humidity: number;
+  windSpeed: number;
+  uvIndex: string;
+  lowTemp: number;
+  highTemp: number;
+} = {
   date: "Today, 24 May",
   currentTemp: 24,
+  status: "RAIN",
   condition: "흐리고 비",
   conditionEn: "Rainy & Cloudy",
   humidity: 78,
@@ -23,6 +36,7 @@ export const HeroWeatherDisplaySection = () => {
         currentTemp={data.currentTemp}
         condition={data.condition}
         conditionEn={data.conditionEn}
+        status={data.status}
       />
       <StatsFooter humidity={data.humidity} windSpeed={data.windSpeed} uvIndex={data.uvIndex} />
     </section>
