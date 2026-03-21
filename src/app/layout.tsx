@@ -1,7 +1,8 @@
 import { Manrope, Plus_Jakarta_Sans } from "next/font/google";
 import localFont from "next/font/local";
 
-import { MainLayout } from "@/widgets";
+import { AppProvider } from "@/shared";
+import { Footer, Header } from "@/widgets";
 import type { Metadata } from "next";
 
 import "./globals.css";
@@ -41,8 +42,12 @@ export default function RootLayout({
       className={`${manrope.variable} ${plusJakartaSans.variable} ${pretendard.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className='flex min-h-full flex-col bg-background text-foreground font-body'>
-        <MainLayout>{children}</MainLayout>
+      <body className='flex min-h-full flex-col bg-background font-body text-foreground'>
+        <AppProvider>
+          <Header />
+          <main className='mx-auto mt-18 w-full max-w-7xl flex-1 px-6 py-8'>{children}</main>
+          <Footer />
+        </AppProvider>
       </body>
     </html>
   );
