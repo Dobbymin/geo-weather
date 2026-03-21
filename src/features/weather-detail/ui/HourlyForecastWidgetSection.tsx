@@ -15,6 +15,8 @@ const MOCK_HOURLY_DATA: { time: string; temp: number; status: WeatherStatus }[] 
 export const HourlyForecastWidgetSection = () => {
   const hourlyForecast = MOCK_HOURLY_DATA;
 
+  const MAX_TEMP_FOR_CHART = 35;
+
   return (
     <section className='rounded-[12px] bg-white p-8 shadow-[0px_12px_40px_0px_rgba(25,28,29,0.06)]'>
       <div className='mb-10 flex flex-wrap items-end justify-between gap-4'>
@@ -49,17 +51,20 @@ export const HourlyForecastWidgetSection = () => {
           {hourlyForecast.map((item, idx) => {
             const { icon: HourlyIcon, color: hourlyColor } = getWeatherIcon(item.status);
             return (
-              <div key={idx} className='group relative flex h-full flex-1 flex-col items-center justify-end'>
+              <div
+                key={`${item.time}-${idx}`}
+                className='group relative flex h-full flex-1 flex-col items-center justify-end'
+              >
                 {/* Temp Tooltip (Hover) */}
                 <div className='absolute -top-10 flex flex-col items-center gap-1 opacity-0 transition-all group-hover:opacity-100'>
-                  <span className='text-xs font-bold text-[#0052ae]'>{item.temp}°</span>
+                  <span className='text-xs font-bold text-[#0052ae]'>{item.temp}&#176;C</span>
                   <HourlyIcon className={cn("size-4", hourlyColor)} />
                 </div>
 
                 {/* Bar */}
                 <div
                   className='relative w-4 cursor-pointer rounded-t-lg bg-[#0052ae]/10 transition-all hover:bg-[#0052ae]/20'
-                  style={{ height: `${(item.temp / 35) * 100}%` }}
+                  style={{ height: `${(item.temp / MAX_TEMP_FOR_CHART) * 100}%` }}
                 >
                   <div className='absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-[#0052ae] shadow-[0px_0px_10px_0px_rgba(0,82,174,0.5)]' />
                 </div>
