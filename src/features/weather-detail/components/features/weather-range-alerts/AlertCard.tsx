@@ -9,11 +9,11 @@ type Props = {
 
 export const AlertCard = ({ icon, bgColor, title, description }: Props) => {
   return (
-    <div className='flex items-center gap-4 rounded-[12px] bg-[#f3f4f5] p-6'>
+    <div className='bg-muted flex items-center gap-4 rounded-[12px] p-6'>
       <div className={cn("flex size-12 items-center justify-center rounded-full", bgColor)}>{icon}</div>
       <div className='flex flex-col'>
-        <p className='text-base font-bold text-[#191c1d]'>{title}</p>
-        <p className='text-sm text-[#434656]'>{description}</p>
+        <p className='text-foreground text-base font-bold'>{title}</p>
+        <p className='text-muted-foreground text-sm'>{description}</p>
       </div>
     </div>
   );
