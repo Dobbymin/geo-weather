@@ -1,4 +1,4 @@
-import { type WeatherStatus } from "@/entities/weather";
+import { type WeatherStatus } from "@/entities";
 
 import { HourlyForecastCard } from "../../common";
 

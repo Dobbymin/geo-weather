@@ -1,6 +1,5 @@
+import { Button } from "@/shared";
 import { ArrowRight } from "lucide-react";
-
-import { Button } from "@/shared/components/ui/button";
 
 import { TitleText } from "../../common";
 

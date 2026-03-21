@@ -1,7 +1,6 @@
+import { type WeatherStatus, getWeatherIcon } from "@/entities";
 import { Badge } from "@/shared";
 import { MapPin } from "lucide-react";
-
-import { type WeatherStatus, getWeatherIcon } from "@/entities/weather";
 
 const MOCK_CURRENT_WEATHER = {
   locationName: "서울특별시 종로구",
