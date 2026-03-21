@@ -1,8 +1,8 @@
 export const Footer = () => {
   return (
-    <footer className='border-border/10 mt-auto w-full border-t pt-8 pb-12 md:pt-12'>
+    <footer className='mt-auto w-full border-t border-border/10 pt-8 pb-8'>
       <div className='mx-auto max-w-7xl px-6'>
-        <p className='text-muted-foreground text-center text-[12px] font-medium md:text-left'>
+        <p className='text-center text-[12px] font-medium text-muted-foreground'>
           © 2026 Geo Weather. All meteorological data provided for informational purposes.
         </p>
       </div>
