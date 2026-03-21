@@ -18,3 +18,5 @@ public
 
 # 패키지 관리
 pnpm-lock.yaml
+
+docs

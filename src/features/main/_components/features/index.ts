@@ -1,2 +1,3 @@
-export * from "./SearchBar";
-export * from "./FavoritesList";
+export * from "./favorites";
+export * from "./hourly-forecast";
+export * from "./weather-information";
