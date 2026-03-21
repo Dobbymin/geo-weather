@@ -30,7 +30,7 @@ export const HeroWeatherDisplaySection = () => {
   const data = MOCK_WEATHER_DATA;
 
   return (
-    <section className='relative col-span-12 flex min-h-100 flex-col justify-between overflow-hidden rounded-[12px] bg-white p-8 lg:col-span-8'>
+    <section className='bg-card col-span-12 flex min-h-100 flex-col justify-between overflow-hidden rounded-[24px] p-8 lg:col-span-8'>
       <DecorativeBackground />
       <CurrentTemperature
         date={data.date}

@@ -24,24 +24,24 @@ export const FavoritesCard = ({ id, name, temp, status, condition, high, low }: 
       <Link href={`/detail/${id}`}>
         <div
           className={cn(
-            "flex flex-col gap-5 rounded-[24px] bg-white p-6 transition-all",
-            "border border-transparent hover:border-[#0052ae]/30 hover:shadow-xl",
+            "flex flex-col gap-5 rounded-[24px] bg-card p-6 transition-all",
+            "border border-transparent hover:border-primary/30 hover:shadow-xl",
             "shadow-[0px_12px_40px_0px_rgba(25,28,29,0.06)]",
           )}
         >
           <div className='flex items-start justify-between'>
-            <h3 className='line-clamp-1 text-lg font-bold tracking-tight text-[#191c1d]'>{name}</h3>
+            <h3 className='line-clamp-1 text-lg font-bold tracking-tight text-foreground'>{name}</h3>
             <div
               className='flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100'
               onClick={(e) => e.preventDefault()}
             >
-              <Button variant='ghost' size='icon' className='size-8 rounded-full text-[#747688] hover:bg-black/5'>
+              <Button variant='ghost' size='icon' className='size-8 rounded-full text-muted-foreground hover:bg-accent'>
                 <Edit2 size={14} />
               </Button>
               <Button
                 variant='ghost'
                 size='icon'
-                className='size-8 rounded-full text-[#747688] hover:bg-red-50 hover:text-red-500'
+                className='size-8 rounded-full text-muted-foreground hover:bg-destructive/10 hover:text-destructive'
               >
                 <Trash2 size={14} />
               </Button>
@@ -53,14 +53,14 @@ export const FavoritesCard = ({ id, name, temp, status, condition, high, low }: 
                 <Icon className='size-full' />
               </div>
               <div>
-                <p className='text-4xl font-bold tracking-tighter text-[#191c1d]'>{temp}°</p>
-                <p className='text-sm font-medium text-[#747688]'>{condition}</p>
+                <p className='font-display text-4xl font-bold tracking-tighter text-foreground'>{temp}°</p>
+                <p className='text-sm font-medium text-muted-foreground'>{condition}</p>
               </div>
             </div>
             <div className='text-right'>
               <div className='flex flex-col gap-0.5'>
-                <span className='text-sm font-bold text-[#191c1d]'>최고: {high}°</span>
-                <span className='text-sm font-medium text-[#747688]'>최저: {low}°</span>
+                <span className='text-sm font-bold text-foreground'>최고: {high}°</span>
+                <span className='text-sm font-medium text-muted-foreground'>최저: {low}°</span>
               </div>
             </div>
           </div>

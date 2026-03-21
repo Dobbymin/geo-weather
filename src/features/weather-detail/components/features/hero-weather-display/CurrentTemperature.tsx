@@ -19,12 +19,14 @@ export const CurrentTemperature = ({ date, currentTemp, condition, conditionEn, 
         <Icon className='size-full' />
       </div>
 
-      <p className='font-semibold text-[#5b5f64]'>{date}</p>
+      <p className='text-muted-foreground font-semibold'>{date}</p>
       <div className='flex items-baseline gap-3 leading-none'>
-        <span className='text-[128px] font-extrabold tracking-[-6.4px] text-[#0052ae]'>{currentTemp}</span>
-        <span className='text-4xl font-semibold text-[#0069dc]'>&#176;C</span>
+        <span className='text-primary font-display text-[128px] font-extrabold tracking-[-6.4px]'>
+          {currentTemp}
+        </span>
+        <span className='text-primary-container text-4xl font-semibold'>&#176;C</span>
       </div>
-      <p className='pt-2 text-xl font-medium text-[#434656]'>
+      <p className='text-muted-foreground pt-2 text-xl font-medium'>
         {condition} ({conditionEn})
       </p>
     </div>
