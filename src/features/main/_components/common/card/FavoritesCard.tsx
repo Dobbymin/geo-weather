@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 import { type WeatherStatus, getWeatherIcon } from "@/entities";
-import { Button, cn } from "@/shared";
+import { Button, DYNAMIC_ROUTE_PATH, cn } from "@/shared";
 import { Edit2, Trash2 } from "lucide-react";
 
 type Props = {
@@ -21,7 +21,7 @@ export const FavoritesCard = ({ id, name, temp, status, condition, high, low }: 
 
   return (
     <div className='group relative'>
-      <Link href={`/detail/${id}`}>
+      <Link href={DYNAMIC_ROUTE_PATH.DETAIL(id)}>
         <div
           className={cn(
             "flex flex-col gap-5 rounded-[24px] bg-card p-6 transition-all",

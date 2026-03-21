@@ -1,4 +1,5 @@
 import { type WeatherStatus } from "@/entities/weather";
+import { Card } from "@/shared";
 
 import { CurrentTemperature, DecorativeBackground, StatsFooter } from "../components";
 
@@ -30,7 +31,7 @@ export const HeroWeatherDisplaySection = () => {
   const data = MOCK_WEATHER_DATA;
 
   return (
-    <section className='bg-card col-span-12 flex min-h-100 flex-col justify-between overflow-hidden rounded-[24px] p-8 lg:col-span-8'>
+    <Card className='relative col-span-12 flex min-h-100 flex-col justify-between overflow-hidden border-none bg-card p-8 shadow-none lg:col-span-8 rounded-[24px]'>
       <DecorativeBackground />
       <CurrentTemperature
         date={data.date}
@@ -40,6 +41,6 @@ export const HeroWeatherDisplaySection = () => {
         status={data.status}
       />
       <StatsFooter humidity={data.humidity} windSpeed={data.windSpeed} uvIndex={data.uvIndex} />
-    </section>
+    </Card>
   );
 };
