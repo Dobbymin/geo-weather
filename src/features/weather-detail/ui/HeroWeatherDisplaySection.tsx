@@ -1,4 +1,5 @@
 import { type WeatherStatus } from "@/entities/weather";
+
 import { CurrentTemperature, DecorativeBackground, StatsFooter } from "../components";
 
 const MOCK_WEATHER_DATA: {

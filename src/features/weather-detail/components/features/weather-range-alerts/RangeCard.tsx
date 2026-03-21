@@ -13,12 +13,12 @@ export const RangeCard = ({ lowTemp, highTemp }: Props) => {
       <div className='flex w-full items-center justify-between'>
         <div>
           <p className='text-sm font-medium opacity-80'>Low</p>
-          <p className='text-[30px] leading-none font-bold'>{lowTemp}°C</p>
+          <p className='text-[30px] leading-none font-bold'>{lowTemp}&#176;C</p>
         </div>
         <div className='h-12 w-px bg-white/20' />
         <div className='text-right'>
           <p className='text-sm font-medium opacity-80'>High</p>
-          <p className='text-[30px] leading-none font-bold'>{highTemp}°C</p>
+          <p className='text-[30px] leading-none font-bold'>{highTemp}&#176;C</p>
         </div>
       </div>
     </div>
