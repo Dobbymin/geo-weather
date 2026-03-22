@@ -15,7 +15,7 @@ type Props = {
 };
 
 export const HourlyForecastList = ({ isExpanded, lat, lon }: Props) => {
-  const { data: hourlyForecastData, isPending, isError } = useGetHourlyForecast({ lat: lat as number, lon: lon as number }); // 서울특별시 종로구 기준
+  const { data: hourlyForecastData, isPending, isError } = useGetHourlyForecast({ lat: lat!, lon: lon! });
 
   const displayedForecast = useMemo(() => {
     if (!hourlyForecastData) return [];
@@ -46,7 +46,6 @@ export const HourlyForecastList = ({ isExpanded, lat, lon }: Props) => {
       </div>
     );
   }
-
 
   if (isError || !hourlyForecastData || hourlyForecastData.hourly.length === 0) {
     return (

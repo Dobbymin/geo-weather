@@ -1,10 +1,13 @@
 "use client";
 
 import { useEffect } from "react";
-import { toast } from "sonner";
+
 import { useGetCurrentWeather, useGetLocation } from "@/entities";
 import { Skeleton } from "@/shared";
+import { toast } from "sonner";
+
 import { Spinner } from "@/shared/components/ui/spinner";
+
 import { CurrentWeather, WeatherInformationTitle } from "../_components";
 
 type Props = {
@@ -14,19 +17,10 @@ type Props = {
   geoLocationError?: string;
 };
 
-export const WeatherInformationSection = ({
-  lat,
-  lon,
-  isGeoLocationLoading,
-  geoLocationError,
-}: Props) => {
-  const {
-    data: currentWeatherData,
-    isPending,
-    isError,
-  } = useGetCurrentWeather({ lat: lat as number, lon: lon as number });
+export const WeatherInformationSection = ({ lat, lon, isGeoLocationLoading, geoLocationError }: Props) => {
+  const { data: currentWeatherData, isPending, isError } = useGetCurrentWeather({ lat: lat!, lon: lon! });
 
-  const { data: locationData } = useGetLocation({ lat: lat as number, lon: lon as number });
+  const { data: locationData, isPending: isLocationPending } = useGetLocation({ lat: lat!, lon: lon! });
 
   useEffect(() => {
     if (geoLocationError) {
@@ -61,7 +55,7 @@ export const WeatherInformationSection = ({
     );
   }
 
-  if (isPending) {
+  if (isPending || isLocationPending || !locationData) {
     return (
       <section aria-labelledby='weather-information'>
         <WeatherInformationTitle />
