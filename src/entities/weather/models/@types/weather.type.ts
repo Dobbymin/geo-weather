@@ -1,4 +1,48 @@
-export type WeatherStatus = "CLEAR" | "CLOUDY" | "PARTLY_CLOUDY" | "RAIN" | "SNOW" | "THUNDERSTORM";
+import { HourlyForecastData } from "./weather-forecast.type";
+import { WeatherStatus } from "./weather-status.type";
+
+/** 날씨 상태 */
+export type WeatherCondition = {
+  id: number;
+  main: string;
+  description: string;
+  icon: string;
+};
+
+/** 기온 및 기압 정보 */
+export type MainWeather = {
+  temp: number;
+  feels_like: number;
+  temp_min: number;
+  temp_max: number;
+  pressure: number;
+  sea_level: number;
+  grnd_level: number;
+  humidity: number;
+  temp_kf: number;
+};
+
+/** 바람 정보 */
+export type Wind = {
+  speed: number;
+  deg: number;
+  gust: number;
+};
+
+/** 구름 정보 */
+export type Clouds = {
+  all: number;
+};
+
+/** 강수 정보 */
+export type Precipitation = {
+  "3h": number;
+};
+
+/** sys 정보 */
+export type ForecastSys = {
+  pod: "d" | "n";
+};
 
 export type WeatherDetail = {
   locationName: string;
@@ -16,12 +60,5 @@ export type WeatherDetail = {
   visibility: number;
   pressure: number;
   date: string;
-  hourlyForecast: HourlyForecastItem[];
-};
-
-export type HourlyForecastItem = {
-  time: string;
-  temp: number;
-  status: WeatherStatus;
-  isPrecipitation?: boolean;
+  hourlyForecast: HourlyForecastData[];
 };
