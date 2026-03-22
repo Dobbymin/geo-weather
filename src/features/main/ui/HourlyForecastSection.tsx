@@ -4,13 +4,18 @@ import { useState } from "react";
 
 import { HourlyForecastList, HourlyForecastTitle } from "../_components";
 
-export const HourlyForecastSection = () => {
+type Props = {
+  lat?: number;
+  lon?: number;
+};
+
+export const HourlyForecastSection = ({ lat, lon }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <section aria-labelledby='hourly-forecast'>
       <HourlyForecastTitle isExpanded={isExpanded} onToggle={() => setIsExpanded((prev) => !prev)} />
-      <HourlyForecastList isExpanded={isExpanded} />
+      <HourlyForecastList isExpanded={isExpanded} lat={lat} lon={lon} />
     </section>
   );
 };
