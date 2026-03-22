@@ -1,5 +1,6 @@
 import { Loader2 } from "lucide-react";
-import { cn } from "@/shared/utils";
+
+import { cn } from "../../utils";
 
 type SpinnerProps = {
   className?: string;
@@ -7,10 +8,5 @@ type SpinnerProps = {
 };
 
 export const Spinner = ({ className, size = 24 }: SpinnerProps) => {
-  return (
-    <Loader2 
-      className={cn("animate-spin text-muted-foreground", className)} 
-      size={size} 
-    />
-  );
+  return <Loader2 className={cn("animate-spin text-muted-foreground", className)} size={size} />;
 };

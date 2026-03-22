@@ -34,7 +34,7 @@ export const DetailHeader = ({ locationId }: Props) => {
           <p className='text-[10px] font-semibold tracking-[1px] text-muted-foreground uppercase'>Current Location</p>
         </div>
       </div>
-      <HeaderActionButtons />
+      <HeaderActionButtons locationId={locationId} locationName={data?.locationName} />
     </div>
   );
 };
