@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Input, ROUTE_PATH } from "@/shared";
-import { Search } from "lucide-react";
+import { ROUTE_PATH } from "@/shared";
+import { LocationSearch } from "@/features";
 
 import { HeaderActionButtons } from "../common";
 
@@ -19,16 +19,7 @@ export const MainHeader = () => {
         </Link>
       </div>
       <div className='ml-4 flex max-w-md flex-1 items-center justify-end gap-2 md:gap-4'>
-        <div className='relative w-full max-w-50 md:max-w-none'>
-          <div className='absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground md:left-4'>
-            <Search size={14} />
-          </div>
-          <Input
-            type='text'
-            placeholder='검색'
-            className='w-full rounded-full border-none bg-muted py-2 pr-3 pl-9 text-xs font-medium text-muted-foreground placeholder:text-muted-foreground focus-visible:ring-0 md:py-2.5 md:pr-4 md:pl-12 md:text-sm'
-          />
-        </div>
+        <LocationSearch />
         <HeaderActionButtons />
       </div>
     </div>
