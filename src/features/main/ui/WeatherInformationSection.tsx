@@ -1,14 +1,61 @@
 "use client";
 
-import { useGetCurrentWeather } from "@/entities";
+import { useEffect } from "react";
+
+import { useGetCurrentWeather, useGetLocation } from "@/entities";
 import { Skeleton } from "@/shared";
+import { toast } from "sonner";
+
+import { Spinner } from "@/shared/components/ui/spinner";
 
 import { CurrentWeather, WeatherInformationTitle } from "../_components";
 
-export const WeatherInformationSection = () => {
-  const { data: currentWeatherData, isLoading, isError } = useGetCurrentWeather({ lat: 37.573, lon: 126.979 }); // 서울특별시 종로구 기준
+type Props = {
+  lat?: number;
+  lon?: number;
+  isGeoLocationLoading: boolean;
+  geoLocationError?: string;
+};
 
-  if (isLoading) {
+export const WeatherInformationSection = ({ lat, lon, isGeoLocationLoading, geoLocationError }: Props) => {
+  const { data: currentWeatherData, isPending, isError } = useGetCurrentWeather({ lat: lat!, lon: lon! });
+
+  const { data: locationData, isPending: isLocationPending } = useGetLocation({ lat: lat!, lon: lon! });
+
+  useEffect(() => {
+    if (geoLocationError) {
+      toast.error(geoLocationError);
+    }
+  }, [geoLocationError]);
+
+  if (isGeoLocationLoading) {
+    return (
+      <section aria-labelledby='weather-information'>
+        <WeatherInformationTitle />
+        <div className='relative'>
+          <Skeleton className='h-59 w-full rounded-[40px] md:h-69' />
+          <div className='absolute inset-0 flex flex-col items-center justify-center gap-2'>
+            <Spinner size={32} />
+            <p className='text-sm font-medium text-muted-foreground'>위치 정보를 가져오는 중입니다...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (geoLocationError || isError || !currentWeatherData) {
+    return (
+      <section aria-labelledby='weather-information'>
+        <WeatherInformationTitle />
+        <div className='flex h-59 w-full flex-col items-center justify-center gap-4 rounded-[40px] border border-dashed border-muted-foreground/20 bg-card/50 px-6 text-center text-muted-foreground md:h-69'>
+          <p className='text-sm font-medium'>현재 날씨 정보를 불러올 수 없습니다.</p>
+          <p className='text-xs opacity-70'>위치 정보 권한을 확인하거나 직접 지역을 검색해주세요.</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (isPending || isLocationPending || !locationData) {
     return (
       <section aria-labelledby='weather-information'>
         <WeatherInformationTitle />
@@ -17,32 +64,17 @@ export const WeatherInformationSection = () => {
     );
   }
 
-  if (isError) {
-    return (
-      <section aria-labelledby='weather-information'>
-        <WeatherInformationTitle />
-        <div className='flex h-59 w-full items-center justify-center rounded-[40px] border border-dashed border-muted-foreground/20 bg-card/50 text-muted-foreground md:h-69'>
-          <p className='text-sm font-medium'>날씨 정보를 불러올 수 없습니다.</p>
-        </div>
-      </section>
-    );
-  }
-
-  if (!currentWeatherData) {
-    return (
-      <section aria-labelledby='weather-information'>
-        <WeatherInformationTitle />
-        <div className='flex h-59 w-full items-center justify-center rounded-[40px] border border-dashed border-muted-foreground/20 bg-card/50 text-muted-foreground md:h-69'>
-          <p className='text-sm font-medium'>날씨 데이터가 존재하지 않습니다.</p>
-        </div>
-      </section>
-    );
-  }
-
   return (
     <section aria-labelledby='weather-information'>
       <WeatherInformationTitle />
-      <CurrentWeather data={currentWeatherData} />
+      <CurrentWeather
+        name={locationData?.locationName || ""}
+        temp={currentWeatherData.temp}
+        status={currentWeatherData.status}
+        description={currentWeatherData.description}
+        lowTemp={currentWeatherData.lowTemp}
+        highTemp={currentWeatherData.highTemp}
+      />
     </section>
   );
 };

@@ -3,19 +3,24 @@ import { Badge, cn } from "@/shared";
 import { MapPin } from "lucide-react";
 
 type Props = {
-  data: {
-    name: string;
-    temp: number;
-    status: WeatherStatus;
-    description: string;
-    lowTemp: number;
-    highTemp: number;
-  };
+  name: string;
+  temp: number;
+  status: WeatherStatus;
+  description: string;
+  lowTemp: number;
+  highTemp: number;
   isAutoDetected?: boolean;
 };
 
-export const CurrentWeather = ({ data, isAutoDetected = true }: Props) => {
-  const { name, temp, status, description, lowTemp, highTemp } = data;
+export const CurrentWeather = ({
+  name,
+  temp,
+  status,
+  description,
+  lowTemp,
+  highTemp,
+  isAutoDetected = true,
+}: Props) => {
   const { icon: WeatherIcon } = getWeatherIcon(status);
 
   return (

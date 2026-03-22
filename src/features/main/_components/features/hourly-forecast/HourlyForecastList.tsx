@@ -10,10 +10,12 @@ import { HourlyForecastCard } from "../../common";
 
 type Props = {
   isExpanded: boolean;
+  lat?: number;
+  lon?: number;
 };
 
-export const HourlyForecastList = ({ isExpanded }: Props) => {
-  const { data: hourlyForecastData, isLoading, isError } = useGetHourlyForecast({ lat: 37.573, lon: 126.979 }); // 서울특별시 종로구 기준
+export const HourlyForecastList = ({ isExpanded, lat, lon }: Props) => {
+  const { data: hourlyForecastData, isPending, isError } = useGetHourlyForecast({ lat: lat!, lon: lon! });
 
   const displayedForecast = useMemo(() => {
     if (!hourlyForecastData) return [];
@@ -28,12 +30,12 @@ export const HourlyForecastList = ({ isExpanded }: Props) => {
   useEffect(() => {
     if (isError) {
       toast.error("예보 정보를 가져오는데 실패했습니다.");
-    } else if (!isLoading && (!hourlyForecastData || hourlyForecastData.hourly.length === 0)) {
+    } else if (!isPending && (!hourlyForecastData || hourlyForecastData.hourly.length === 0)) {
       toast.warning("예보 정보를 찾을 수 없습니다.");
     }
-  }, [isError, isLoading, hourlyForecastData]);
+  }, [isError, isPending, hourlyForecastData]);
 
-  if (isLoading) {
+  if (isPending) {
     return (
       <div className='w-full'>
         <div className='scrollbar-hide flex gap-4 overflow-x-auto pt-1 pb-4'>
