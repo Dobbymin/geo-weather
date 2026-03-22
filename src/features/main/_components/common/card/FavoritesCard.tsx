@@ -44,7 +44,7 @@ export const FavoritesCard = ({
           <div className='flex items-start justify-between'>
             <h3 className='line-clamp-1 text-lg font-bold tracking-tight text-foreground'>{name}</h3>
             <div
-              className='flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100'
+              className='flex items-center gap-1'
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
