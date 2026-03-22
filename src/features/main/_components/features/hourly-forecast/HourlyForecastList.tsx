@@ -1,28 +1,28 @@
-import { type WeatherStatus } from "@/entities";
+"use client";
+
+import { WeatherStatus, useGetHourlyForecast } from "@/entities";
 
 import { HourlyForecastCard } from "../../common";
 
-const HOURLY_DATA_MOCK: { time: string; temp: number; status: WeatherStatus }[] = [
-  { time: "현재", temp: 12, status: "CLEAR" },
-  { time: "1시", temp: 11, status: "PARTLY_CLOUDY" },
-  { time: "2시", temp: 10, status: "CLOUDY" },
-  { time: "3시", temp: 9, status: "RAIN" },
-  { time: "4시", temp: 8, status: "THUNDERSTORM" },
-  { time: "5시", temp: 7, status: "RAIN" },
-  { time: "6시", temp: 5, status: "SNOW" },
-  { time: "7시", temp: 4, status: "SNOW" },
-  { time: "8시", temp: 6, status: "CLOUDY" },
-  { time: "9시", temp: 8, status: "PARTLY_CLOUDY" },
-  { time: "10시", temp: 10, status: "CLEAR" },
-  { time: "11시", temp: 12, status: "CLEAR" },
-];
-
 export const HourlyForecastList = () => {
+  const { data: hourlyForecastData, isLoading, isError } = useGetHourlyForecast({ lat: 37.573, lon: 126.979 }); // 서울특별시 종로구 기준
+
+  if (isLoading) return <div>로딩 중...</div>;
+  if (!hourlyForecastData) return <div>예보 정보를 찾을 수 없습니다.</div>;
+  if (isError) return <div>예보 정보를 가져오는데 실패했습니다.</div>;
+
   return (
     <div className='w-full'>
       <div className='scrollbar-hide flex gap-4 overflow-x-auto pt-1 pb-4'>
-        {HOURLY_DATA_MOCK.map((hour, index) => (
-          <HourlyForecastCard key={`${hour.time}-${index}`} {...hour} />
+        {hourlyForecastData.hourly.map((item, index) => (
+          <HourlyForecastCard
+            key={`${item.dt}-${index}`}
+            date={item.date}
+            time={item.time}
+            temp={item.temp}
+            status={item.status as WeatherStatus}
+            isActive={index === 0}
+          />
         ))}
       </div>
     </div>

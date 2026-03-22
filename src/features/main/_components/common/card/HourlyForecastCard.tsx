@@ -2,13 +2,14 @@ import { type WeatherStatus, getWeatherIcon } from "@/entities";
 import { cn } from "@/shared";
 
 type Props = {
+  date: string;
   time: string;
   status: WeatherStatus;
   temp: number;
   isActive?: boolean;
 };
 
-export const HourlyForecastCard = ({ time, status, temp, isActive = false }: Props) => {
+export const HourlyForecastCard = ({ date, time, status, temp, isActive = false }: Props) => {
   const { icon: Icon, color } = getWeatherIcon(status);
 
   return (
@@ -20,20 +21,27 @@ export const HourlyForecastCard = ({ time, status, temp, isActive = false }: Pro
           : "border border-transparent bg-card text-foreground",
       )}
     >
-      <span
-        className={cn(
-          "text-sm font-bold tracking-[1.2px] uppercase",
-          isActive ? "text-primary-foreground/80" : "text-muted-foreground",
-        )}
-      >
-        {time}
-      </span>
+      <div className='flex flex-col items-center gap-2'>
+        <span
+          className={cn("text-sm font-medium", isActive ? "text-primary-foreground/60" : "text-muted-foreground/60")}
+        >
+          {date}
+        </span>
+        <span
+          className={cn(
+            "text-xs font-bold tracking-[1.2px] uppercase",
+            isActive ? "text-primary-foreground/80" : "text-muted-foreground",
+          )}
+        >
+          {time}
+        </span>
+      </div>
 
       <div className={cn("size-7", isActive ? "text-primary-foreground" : color)}>
         <Icon className='size-full' />
       </div>
 
-      <span className='font-display text-2xl font-bold leading-8'>{temp}°</span>
+      <span className='font-display text-2xl leading-8 font-bold'>{temp}°</span>
     </div>
   );
 };
