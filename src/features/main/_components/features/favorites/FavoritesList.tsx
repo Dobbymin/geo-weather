@@ -1,64 +1,28 @@
-import { type WeatherStatus } from "@/entities";
+import { useGetFavorites } from "@/shared";
 
-import { FavoritesCard } from "../../common";
+import { useIsHydrated } from "../../../_hooks";
+import { FavoriteItemCard } from "./FavoriteItemCard";
 
 export const FavoritesList = () => {
-  const FAVORITES_DATA_MOCK: {
-    id: string;
-    name: string;
-    temp: number;
-    status: WeatherStatus;
-    condition: string;
-    high: number;
-    low: number;
-  }[] = [
-    { id: "서울특별시-종로구", name: "서울특별시 종로구", temp: 12, status: "CLEAR", condition: "맑음", high: 15, low: 8 },
-    {
-      id: "경기도-수원시영통구",
-      name: "경기도 수원시 영통구",
-      temp: 24,
-      status: "RAIN",
-      condition: "흐리고 비",
-      high: 26,
-      low: 18,
-    },
-    {
-      id: "jeju-city",
-      name: "제주특별자치도 제주시",
-      temp: 21,
-      status: "CLOUDY",
-      condition: "구름 많음",
-      high: 22,
-      low: 20,
-    },
-    {
-      id: "busan-haeundae",
-      name: "부산광역시 해운대구",
-      temp: 18,
-      status: "PARTLY_CLOUDY",
-      condition: "구름 조금",
-      high: 20,
-      low: 15,
-    },
-    { id: "daegu-junggu", name: "대구광역시 중구", temp: 15, status: "CLEAR", condition: "맑음", high: 18, low: 10 },
-    { id: "gangneung", name: "강원도 강릉시", temp: 8, status: "SNOW", condition: "눈", high: 10, low: 2 },
-    { id: "gwangju-bukgu", name: "광주광역시 북구", temp: 14, status: "RAIN", condition: "비", high: 16, low: 11 },
-    {
-      id: "daejeon-seogu",
-      name: "대전광역시 서구",
-      temp: 13,
-      status: "THUNDERSTORM",
-      condition: "천둥번개",
-      high: 15,
-      low: 9,
-    },
-  ];
+  const favorites = useGetFavorites();
+  const isHydrated = useIsHydrated();
+
+  if (!isHydrated) return null;
+
+  if (favorites.length === 0) {
+    return (
+      <div className='flex h-40 flex-col items-center justify-center rounded-[24px] border-2 border-dashed border-muted bg-card'>
+        <p className='text-muted-foreground'>즐겨찾는 장소가 없습니다.</p>
+        <p className='text-xs text-muted-foreground'>상세 페이지에서 별 아이콘을 눌러 추가해보세요!</p>
+      </div>
+    );
+  }
 
   return (
     <section className='w-full space-y-4'>
       <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-        {FAVORITES_DATA_MOCK.map((item) => (
-          <FavoritesCard key={item.id} {...item} />
+        {favorites.map((item) => (
+          <FavoriteItemCard key={item.id} item={item} />
         ))}
       </div>
     </section>

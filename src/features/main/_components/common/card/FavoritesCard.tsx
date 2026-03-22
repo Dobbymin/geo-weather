@@ -14,9 +14,21 @@ type Props = {
   condition: string;
   high: number;
   low: number;
+  onEditAction?: (e: React.MouseEvent) => void;
+  onDeleteAction?: (e: React.MouseEvent) => void;
 };
 
-export const FavoritesCard = ({ id, name, temp, status, condition, high, low }: Props) => {
+export const FavoritesCard = ({
+  id,
+  name,
+  temp,
+  status,
+  condition,
+  high,
+  low,
+  onEditAction,
+  onDeleteAction,
+}: Props) => {
   const { icon: Icon, color } = getWeatherIcon(status);
 
   return (
@@ -33,14 +45,23 @@ export const FavoritesCard = ({ id, name, temp, status, condition, high, low }: 
             <h3 className='line-clamp-1 text-lg font-bold tracking-tight text-foreground'>{name}</h3>
             <div
               className='flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100'
-              onClick={(e) => e.preventDefault()}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
             >
-              <Button variant='ghost' size='icon' className='size-8 rounded-full text-muted-foreground hover:bg-accent'>
+              <Button
+                variant='ghost'
+                size='icon'
+                onClick={onEditAction}
+                className='size-8 rounded-full text-muted-foreground hover:bg-accent'
+              >
                 <Edit2 size={14} />
               </Button>
               <Button
                 variant='ghost'
                 size='icon'
+                onClick={onDeleteAction}
                 className='size-8 rounded-full text-muted-foreground hover:bg-destructive/10 hover:text-destructive'
               >
                 <Trash2 size={14} />
