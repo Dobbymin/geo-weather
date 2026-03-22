@@ -9,7 +9,8 @@
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --fix --cache",
     "format:fix": "prettier --write .",
-    "tsc": "tsc --noEmit"
+    "tsc": "tsc --noEmit",
+    "generate:coords": "tsx scripts/generateDistrictsWithCoords.ts"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.91.3",
@@ -40,6 +41,7 @@
     "eslint-config-next": "16.2.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "tailwindcss": "^4",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }
