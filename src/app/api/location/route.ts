@@ -17,7 +17,11 @@ export async function GET(request: NextRequest) {
     });
 
     const data = await res.json();
-    const region = data.documents[0];
+    const region = data.documents?.[0];
+
+    if (!region) {
+      return NextResponse.json({ error: "해당 좌표에 대한 지역 정보를 찾을 수 없습니다." }, { status: 404 });
+    }
 
     return NextResponse.json({
       locationName: region.address_name, // 예: "서울특별시 종로구 청운동"
