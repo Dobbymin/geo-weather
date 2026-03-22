@@ -12,9 +12,9 @@ export const FavoritesList = () => {
     high: number;
     low: number;
   }[] = [
-    { id: "seoul-jongno", name: "서울특별시 종로구", temp: 12, status: "CLEAR", condition: "맑음", high: 15, low: 8 },
+    { id: "서울특별시-종로구", name: "서울특별시 종로구", temp: 12, status: "CLEAR", condition: "맑음", high: 15, low: 8 },
     {
-      id: "suwon-yeongtong",
+      id: "경기도-수원시영통구",
       name: "경기도 수원시 영통구",
       temp: 24,
       status: "RAIN",

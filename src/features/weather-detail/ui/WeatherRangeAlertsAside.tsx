@@ -1,11 +1,16 @@
+import { type WeatherDetail } from "@/entities";
 import { AlertCircle, Wind } from "lucide-react";
 
 import { AlertCard, RangeCard } from "../components";
 
-export const WeatherRangeAlertsAside = () => {
+type Props = {
+  data: WeatherDetail;
+};
+
+export const WeatherRangeAlertsAside = ({ data }: Props) => {
   return (
     <aside className='col-span-12 flex flex-col gap-6 lg:col-span-4'>
-      <RangeCard lowTemp={12} highTemp={28} />
+      <RangeCard lowTemp={data.lowTemp} highTemp={data.highTemp} />
       <AlertCard
         icon={<AlertCircle className='text-tertiary' />}
         bgColor='bg-tertiary/20'
