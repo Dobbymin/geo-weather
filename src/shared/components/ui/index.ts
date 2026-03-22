@@ -5,3 +5,5 @@ export * from "./input";
 export * from "./skeleton";
 export * from "./sonner";
 export * from "./spinner";
+export * from "./dialog";
+export * from "./label";
