@@ -2,19 +2,20 @@ import { type WeatherStatus, getWeatherIcon } from "@/entities";
 import { Badge, cn } from "@/shared";
 import { MapPin } from "lucide-react";
 
-const MOCK_CURRENT_WEATHER = {
-  locationName: "서울특별시 종로구",
-  temp: 24,
-  status: "CLEAR" as WeatherStatus,
-  conditionText: "맑음 · Partly Cloudy",
-  lowTemp: 18,
-  highTemp: 26,
-  isAutoDetected: true,
+type Props = {
+  data: {
+    name: string;
+    temp: number;
+    status: WeatherStatus;
+    description: string;
+    lowTemp: number;
+    highTemp: number;
+  };
+  isAutoDetected?: boolean;
 };
 
-export const CurrentWeather = () => {
-  const { locationName, temp, status, conditionText, lowTemp, highTemp, isAutoDetected } = MOCK_CURRENT_WEATHER;
-
+export const CurrentWeather = ({ data, isAutoDetected = true }: Props) => {
+  const { name, temp, status, description, lowTemp, highTemp } = data;
   const { icon: WeatherIcon } = getWeatherIcon(status);
 
   return (
@@ -23,7 +24,6 @@ export const CurrentWeather = () => {
         "gradient-primary relative flex w-full flex-col items-start overflow-hidden rounded-[40px] p-8 shadow-xl md:p-12",
       )}
     >
-      {/* Decorative Elements */}
       <div className='pointer-events-none absolute inset-0'>
         <div className='absolute -top-[10%] -right-[5%] size-75 rounded-full bg-white/10 blur-[32px]' />
         <div className='absolute -bottom-[20%] left-[10%] size-75 rounded-full bg-primary-fixed/10 blur-[32px]' />
@@ -43,31 +43,30 @@ export const CurrentWeather = () => {
             </Badge>
           )}
 
-          <h2 className='text-primary-foreground text-2xl font-medium tracking-tight md:text-[36px] md:leading-10'>
-            {locationName}
+          <h2 className='text-2xl font-medium tracking-tight text-primary-foreground md:text-[36px] md:leading-10'>
+            {name}
           </h2>
 
-          <p className='text-primary-foreground/90 text-base md:text-lg'>{conditionText}</p>
+          <p className='text-base text-primary-foreground/90 md:text-lg'>{description}</p>
 
-          <div className='text-primary-foreground mt-2 flex items-center gap-4 text-sm md:mt-4'>
+          <div className='mt-2 flex items-center gap-4 text-sm text-primary-foreground md:mt-4'>
             <div className='flex items-center gap-1'>
               <span className='opacity-70'>Low</span>
-              <span className='font-bold'>{lowTemp}°</span>
+              <span className='font-bold'>{lowTemp}&#176;</span>
             </div>
             <div className='flex items-center gap-1'>
               <span className='opacity-70'>High</span>
-              <span className='font-bold'>{highTemp}°</span>
+              <span className='font-bold'>{highTemp}&#176;</span>
             </div>
           </div>
         </div>
 
-        {/* Right Side: Temperature & Icon */}
         <div className='flex items-center gap-4 self-end md:gap-8 md:self-auto'>
-          <div className='text-primary-foreground size-16 md:size-22'>
+          <div className='size-16 text-primary-foreground md:size-22'>
             <WeatherIcon className='size-full' />
           </div>
-          <div className='text-primary-foreground font-display text-7xl font-extrabold tracking-[-3px] md:text-[128px] md:tracking-[-6.4px]'>
-            {temp}°
+          <div className='font-display text-7xl font-extrabold tracking-[-3px] text-primary-foreground md:text-[128px] md:tracking-[-6.4px]'>
+            {temp}&#176;
           </div>
         </div>
       </div>

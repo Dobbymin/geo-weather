@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  /* Fonts from DESIGN.md */
+  /* Fonts */
   --font-display: var(--font-manrope), ui-sans-serif, system-ui;
   --font-body: var(--font-plus-jakarta-sans), var(--font-pretendard), ui-sans-serif, system-ui;
   --font-sans: var(--font-plus-jakarta-sans), var(--font-pretendard), ui-sans-serif, system-ui;
@@ -50,7 +50,7 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 
-  /* DESIGN.md Semantic Colors */
+  /* Semantic Colors */
   --color-surface: var(--background);
   --color-surface-low: var(--muted);
   --color-surface-lowest: var(--card);
