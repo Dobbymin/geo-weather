@@ -15,13 +15,19 @@ export const useGeolocation = () => {
   const [state, setState] = useState<GeolocationState>({
     lat: null,
     lon: null,
-    error:
-      typeof navigator !== "undefined" && !navigator.geolocation ? "브라우저가 위치정보를 제공하지 않습니다." : null,
+    error: null,
     isLoading: true,
   });
 
   useEffect(() => {
-    if (!navigator.geolocation) return;
+    if (typeof window !== "undefined" && !navigator.geolocation) {
+      setState((prev) => ({
+        ...prev,
+        error: "브라우저가 위치정보를 제공하지 않습니다.",
+        isLoading: false,
+      }));
+      return;
+    }
 
     navigator.geolocation.getCurrentPosition(
       ({ coords }) => {
@@ -46,3 +52,4 @@ export const useGeolocation = () => {
 
   return state;
 };
+

@@ -4,12 +4,17 @@ import { FavoritesSection, HourlyForecastSection, WeatherInformationSection } fr
 import { useGeolocation } from "@/shared";
 
 export default function Home() {
-  const { lat, lon, isLoading: isGeolocationLoading } = useGeolocation();
+  const { lat, lon, error, isLoading: isGeolocationLoading } = useGeolocation();
 
   return (
     <main className='flex flex-col gap-8 pb-12 md:gap-12'>
-      <WeatherInformationSection lat={lat!} lon={lon!} isGeoLocationLoading={isGeolocationLoading} />
-      <HourlyForecastSection lat={lat!} lon={lon!} />
+      <WeatherInformationSection
+        lat={lat ?? undefined}
+        lon={lon ?? undefined}
+        isGeoLocationLoading={isGeolocationLoading}
+        geoLocationError={error ?? undefined}
+      />
+      <HourlyForecastSection lat={lat ?? undefined} lon={lon ?? undefined} />
       <FavoritesSection />
     </main>
   );

@@ -4,3 +4,4 @@ export * from "./card";
 export * from "./input";
 export * from "./skeleton";
 export * from "./sonner";
+export * from "./spinner";

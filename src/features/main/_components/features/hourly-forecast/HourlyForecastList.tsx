@@ -47,6 +47,7 @@ export const HourlyForecastList = ({ isExpanded, lat, lon }: Props) => {
     );
   }
 
+
   if (isError || !hourlyForecastData || hourlyForecastData.hourly.length === 0) {
     return (
       <div className='w-full'>
