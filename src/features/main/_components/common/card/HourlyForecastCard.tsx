@@ -15,7 +15,7 @@ export const HourlyForecastCard = ({ date, time, status, temp, isActive = false 
   return (
     <div
       className={cn(
-        "flex min-w-28 flex-col items-center gap-4 rounded-[24px] p-5 transition-all",
+        "flex min-w-24 flex-col items-center gap-4 rounded-[24px] p-3 transition-all",
         isActive
           ? "bg-primary text-primary-foreground shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)]"
           : "border border-transparent bg-card text-foreground",
