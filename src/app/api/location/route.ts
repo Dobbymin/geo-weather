@@ -1,7 +1,6 @@
-// src/app/api/location/route.ts
 import { NextRequest, NextResponse } from "next/server";
 
-const KAKAO_API_KEY = process.env.KAKAO_REST_API_KEY;
+import { KAKAO_API_KEY } from "@/shared";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
