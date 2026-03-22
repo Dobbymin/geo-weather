@@ -1,4 +1,4 @@
-import { Button, useAddFavorite, useRemoveFavorite, useGetFavorites } from "@/shared";
+import { Button, useAddFavorite, useRemoveFavorite, useCheckIsFavorite } from "@/shared";
 import { Settings, Star } from "lucide-react";
 import { cn } from "@/shared/utils";
 import { toast } from "sonner";
@@ -11,21 +11,23 @@ interface HeaderActionButtonsProps {
 export const HeaderActionButtons = ({ locationId, locationName }: HeaderActionButtonsProps) => {
   const addFavorite = useAddFavorite();
   const removeFavorite = useRemoveFavorite();
-  const favorites = useGetFavorites();
-  const isFav = locationId ? favorites.some((f) => f.id === locationId) : false;
+  const isFav = useCheckIsFavorite(locationId || "");
 
   const handleToggleFavorite = () => {
     if (!locationId || !locationName) return;
+
     if (isFav) {
       removeFavorite(locationId);
       toast.info("즐겨찾기에서 제거되었습니다.");
-    } else {
-      if (favorites.length >= 6) {
-        toast.error("최대 6개까지만 즐겨찾기에 추가할 수 있습니다.");
-        return;
-      }
-      addFavorite({ id: locationId, name: locationName });
+      return;
+    }
+
+    const isSuccess = addFavorite({ id: locationId, name: locationName });
+
+    if (isSuccess) {
       toast.success("즐겨찾기에 추가되었습니다.");
+    } else {
+      toast.error("최대 6개까지만 즐겨찾기에 추가할 수 있습니다.");
     }
   };
 
