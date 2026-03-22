@@ -1,7 +1,7 @@
 import { WeatherDetail } from "../models";
 
 export const FAVORITES_DETAIL_MOCK: Record<string, WeatherDetail> = {
-  "seoul-jongno": {
+  "서울특별시-종로구": {
     locationName: "서울특별시 종로구",
     currentTemp: 12,
     lowTemp: 8,
@@ -125,7 +125,7 @@ export const FAVORITES_DETAIL_MOCK: Record<string, WeatherDetail> = {
       },
     ],
   },
-  "suwon-yeongtong": {
+  "경기도-수원시영통구": {
     locationName: "경기도 수원시 영통구",
     currentTemp: 24,
     lowTemp: 18,
