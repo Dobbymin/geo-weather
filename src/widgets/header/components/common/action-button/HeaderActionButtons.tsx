@@ -1,14 +1,16 @@
-import { Button, useAddFavorite, useRemoveFavorite, useCheckIsFavorite } from "@/shared";
+"use client";
+
+import { Button, useAddFavorite, useCheckIsFavorite, useRemoveFavorite } from "@/shared";
+import { cn } from "@/shared";
 import { Settings, Star } from "lucide-react";
-import { cn } from "@/shared/utils";
 import { toast } from "sonner";
 
-interface HeaderActionButtonsProps {
+type Props = {
   locationId?: string;
   locationName?: string;
-}
+};
 
-export const HeaderActionButtons = ({ locationId, locationName }: HeaderActionButtonsProps) => {
+export const HeaderActionButtons = ({ locationId, locationName }: Props) => {
   const addFavorite = useAddFavorite();
   const removeFavorite = useRemoveFavorite();
   const isFav = useCheckIsFavorite(locationId || "");
@@ -40,7 +42,7 @@ export const HeaderActionButtons = ({ locationId, locationName }: HeaderActionBu
           onClick={handleToggleFavorite}
           className={cn(
             "size-10 rounded-full transition-all active:scale-95",
-            isFav ? "text-yellow-400 fill-yellow-400" : "text-muted-foreground"
+            isFav ? "fill-yellow-400 text-yellow-400" : "text-muted-foreground",
           )}
         >
           <Star size={20} className={cn(isFav && "fill-current")} />
