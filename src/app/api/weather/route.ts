@@ -36,8 +36,16 @@ export async function GET(request: NextRequest) {
       status: mapWeatherIdToStatus(weatherId),
       humidity: data.main.humidity,
       windSpeed: data.wind.speed,
-      sunrise: new Date(data.sys.sunrise * 1000).toLocaleTimeString("ko-KR"),
-      sunset: new Date(data.sys.sunset * 1000).toLocaleTimeString("ko-KR"),
+      sunrise: new Date(data.sys.sunrise * 1000).toLocaleTimeString("ko-KR", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      }),
+      sunset: new Date(data.sys.sunset * 1000).toLocaleTimeString("ko-KR", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      }),
       visibility: data.visibility / 1000,
       pressure: data.main.pressure,
     });

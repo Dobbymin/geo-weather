@@ -78,8 +78,16 @@ export async function GET(request: NextRequest) {
       city: {
         name: data.city.name,
         country: data.city.country,
-        sunrise: new Date(data.city.sunrise * 1000).toLocaleTimeString("ko-KR"),
-        sunset: new Date(data.city.sunset * 1000).toLocaleTimeString("ko-KR"),
+        sunrise: new Date(data.city.sunrise * 1000).toLocaleTimeString("ko-KR", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        }),
+        sunset: new Date(data.city.sunset * 1000).toLocaleTimeString("ko-KR", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        }),
       },
     });
   } catch (err) {
