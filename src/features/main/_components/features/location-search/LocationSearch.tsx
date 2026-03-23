@@ -49,6 +49,12 @@ export const LocationSearch = () => {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && results.length > 0) {
+      handleSelect(results[0].id);
+    }
+  };
+
   return (
     <div ref={containerRef} className='relative w-full max-w-50 md:max-w-none'>
       <div className='absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground md:left-4'>
@@ -59,6 +65,7 @@ export const LocationSearch = () => {
         placeholder='검색 (예: 종로구, 청운동)'
         value={searchTerm}
         onChange={handleChange}
+        onKeyDown={handleKeyDown}
         onFocus={() => searchTerm.length >= 2 && setIsOpen(true)}
         className='w-full rounded-full border-none bg-muted py-2 pr-3 pl-9 text-xs font-medium text-muted-foreground placeholder:text-muted-foreground focus-visible:ring-0 md:py-2.5 md:pr-4 md:pl-12 md:text-sm'
       />
