@@ -7,21 +7,21 @@ type Props = {
 
 export const SunriseSunset = ({ sunrise, sunset }: Props) => {
   return (
-    <div className='bg-muted flex flex-col gap-4 rounded-[12px] p-6'>
-      <p className='text-muted-foreground text-sm font-bold tracking-[1.6px] uppercase'>Sunrise & Sunset</p>
+    <div className='flex flex-col gap-4 rounded-[12px] bg-muted p-6'>
+      <p className='text-sm font-bold tracking-[1.6px] text-muted-foreground uppercase'>일출 & 일몰</p>
       <div className='flex items-center justify-between'>
-        <div className='flex flex-col items-center gap-1'>
+        <div className='flex flex-col items-center gap-2'>
           <div className='text-tertiary'>
             <Sun size={24} />
           </div>
-          <p className='text-foreground font-display text-lg font-bold'>{sunrise}</p>
+          <p className='font-display font-bold text-foreground'>{sunrise}</p>
         </div>
-        <div className='bg-border/30 h-0.5 w-12' />
-        <div className='flex flex-col items-center gap-1'>
+        <div className='h-0.5 w-12 bg-border/30' />
+        <div className='flex flex-col items-center gap-2'>
           <div className='text-primary'>
             <Moon size={24} />
           </div>
-          <p className='text-foreground font-display text-lg font-bold'>{sunset}</p>
+          <p className='font-display font-bold text-foreground'>{sunset}</p>
         </div>
       </div>
     </div>

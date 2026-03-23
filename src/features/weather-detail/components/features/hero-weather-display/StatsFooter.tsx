@@ -1,3 +1,5 @@
+import { getUvIndexLabel } from "@/entities";
+
 type Props = {
   humidity: number;
   windSpeed: number;
@@ -6,20 +8,20 @@ type Props = {
 
 export const StatsFooter = ({ humidity, windSpeed, uvIndex }: Props) => {
   return (
-    <div className='border-border relative z-10 mt-8 grid grid-cols-3 gap-4 border-t pt-8'>
+    <div className='relative z-10 mt-8 grid grid-cols-3 gap-4 border-t border-border pt-8'>
       <div className='flex flex-col gap-1'>
-        <p className='text-muted-foreground text-sm font-bold tracking-[1.6px] uppercase'>Humidity</p>
-        <p className='text-foreground font-display text-xl font-bold'>{`${humidity}%`}</p>
+        <p className='text-sm font-bold tracking-[1.6px] text-muted-foreground uppercase'>습도</p>
+        <p className='font-display text-xl font-bold text-foreground'>{`${humidity}%`}</p>
       </div>
 
       <div className='flex flex-col gap-1'>
-        <p className='text-muted-foreground text-sm font-bold tracking-[1.6px] uppercase'>Wind Speed</p>
-        <p className='text-foreground font-display text-xl font-bold'>{`${windSpeed}km/h`}</p>
+        <p className='text-sm font-bold tracking-[1.6px] text-muted-foreground uppercase'>풍속</p>
+        <p className='font-display text-xl font-bold text-foreground'>{`${windSpeed}km/h`}</p>
       </div>
 
       <div className='flex flex-col gap-1'>
-        <p className='text-muted-foreground text-sm font-bold tracking-[1.6px] uppercase'>UV Index</p>
-        <p className='text-foreground font-display text-xl font-bold'>{uvIndex}</p>
+        <p className='text-sm font-bold tracking-[1.6px] text-muted-foreground uppercase'>자외선 지수</p>
+        <p className='font-display text-xl font-bold text-foreground'>{getUvIndexLabel(uvIndex)}</p>
       </div>
     </div>
   );
