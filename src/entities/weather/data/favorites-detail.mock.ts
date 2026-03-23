@@ -16,6 +16,8 @@ export const FAVORITES_DETAIL_MOCK: Record<string, WeatherDetail> = {
     sunset: "06:45 PM",
     visibility: 20,
     pressure: 1018,
+    rain: 0,
+    feelsLike: 11,
     date: "2026년 3월 19일 목요일",
     hourlyForecast: [
       {
@@ -140,6 +142,8 @@ export const FAVORITES_DETAIL_MOCK: Record<string, WeatherDetail> = {
     sunset: "06:47 PM",
     visibility: 14.2,
     pressure: 1012,
+    rain: 5.2,
+    feelsLike: 23,
     date: "2026년 3월 19일 목요일",
     hourlyForecast: [
       {

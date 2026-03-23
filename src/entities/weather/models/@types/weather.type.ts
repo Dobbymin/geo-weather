@@ -61,4 +61,6 @@ export type WeatherDetail = {
   pressure: number;
   date: string;
   hourlyForecast: HourlyForecastData[];
+  rain: number | null;
+  feelsLike: number;
 };

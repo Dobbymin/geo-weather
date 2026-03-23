@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { use } from "react";
 
 import { useWeatherDetail } from "@/entities";
 import {
@@ -15,7 +15,7 @@ type Props = {
 };
 
 export default function DetailPage({ params }: Props) {
-  const { locationId } = React.use(params);
+  const { locationId } = use(params);
   const { data, isLoading } = useWeatherDetail(locationId);
 
   if (isLoading) {
@@ -42,8 +42,8 @@ export default function DetailPage({ params }: Props) {
 
   return (
     <div className='min-h-screen bg-background'>
-      <div className='flex flex-col gap-12 pb-32'>
-        <div className='grid grid-cols-12 gap-8'>
+      <div className='flex flex-col gap-6 pb-16 md:gap-12 md:pb-32'>
+        <div className='grid grid-cols-12 gap-4 md:gap-8'>
           <HeroWeatherDisplaySection data={data} />
           <WeatherRangeAlertsAside data={data} />
         </div>

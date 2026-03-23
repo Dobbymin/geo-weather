@@ -1,3 +1,5 @@
+"use client";
+
 import { useGetFavorites } from "@/shared";
 
 import { useIsHydrated } from "../../../_hooks";

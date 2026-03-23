@@ -1,5 +1,5 @@
 import { type WeatherDetail } from "@/entities";
-import { AlertCircle, Wind } from "lucide-react";
+import { CloudRain, Thermometer } from "lucide-react";
 
 import { AlertCard, RangeCard } from "../components";
 
@@ -12,16 +12,16 @@ export const WeatherRangeAlertsAside = ({ data }: Props) => {
     <aside className='col-span-12 flex flex-col gap-6 lg:col-span-4'>
       <RangeCard lowTemp={data.lowTemp} highTemp={data.highTemp} />
       <AlertCard
-        icon={<AlertCircle className='text-tertiary' />}
-        bgColor='bg-tertiary/20'
-        title='Rain Alert'
-        description='Heavy rain expected in 2 hours.'
+        icon={<CloudRain className='text-primary' />}
+        bgColor='bg-primary-fixed'
+        title='비 예보'
+        description={data.rain ? `현재 시간당 ${data.rain}mm 강수 중입니다.` : "오늘은 비 예보가 없습니다."}
       />
       <AlertCard
-        icon={<Wind className='text-primary' />}
-        bgColor='bg-primary-fixed'
-        title='Air Quality'
-        description='24 AQI - Excellent'
+        icon={<Thermometer className='text-tertiary' />}
+        bgColor='bg-tertiary/20'
+        title='체감 온도'
+        description={`현재 체감 온도는 ${data.feelsLike}°C 입니다.`}
       />
     </aside>
   );
