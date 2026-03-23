@@ -48,6 +48,8 @@ export async function GET(request: NextRequest) {
       }),
       visibility: data.visibility / 1000,
       pressure: data.main.pressure,
+      rain: data.rain?.["1h"] || 0,
+      feelsLike: Math.round(data.main.feels_like),
     });
   } catch (error) {
     console.error("Failed to fetch weather:", error);
