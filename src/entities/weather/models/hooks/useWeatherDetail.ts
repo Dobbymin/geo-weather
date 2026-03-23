@@ -72,6 +72,8 @@ export function useWeatherDetail(locationId: string): { data: WeatherDetail | nu
       sunset: current.sunset,
       visibility: current.visibility,
       pressure: current.pressure,
+      rain: current.rain,
+      feelsLike: current.feelsLike,
       date: new Date().toLocaleDateString("ko-KR", {
         year: "numeric",
         month: "long",
