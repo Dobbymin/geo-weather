@@ -1,6 +1,5 @@
+import { type WeatherStatus, getWeatherIcon } from "@/entities";
 import { Skeleton, cn } from "@/shared";
-
-import { type WeatherStatus, getWeatherIcon } from "@/entities/weather";
 
 type Props = {
   date?: string;
@@ -23,7 +22,7 @@ export const CurrentTemperature = ({ date, currentTemp, condition, conditionEn, 
               <Skeleton className='h-9 w-14' />
             </div>
           </div>
-          <Skeleton className='mt-6 mr-3 size-25 shrink-0 rounded-full md:size-44' />
+          <Skeleton className='mt-6 mr-3 size-25 shrink-0 rounded-full md:absolute md:right-10 md:bottom-0 md:size-44' />
         </div>
         <Skeleton className='mt-1 h-6 w-48 md:mt-2 md:h-7 md:w-64' />
       </div>
