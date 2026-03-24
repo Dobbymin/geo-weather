@@ -1,7 +1,7 @@
 import { type WeatherDetail } from "@/entities";
 import { Card } from "@/shared";
 
-import { CurrentTemperature, DecorativeBackground, StatsFooter } from "../components";
+import { CurrentTemperature, DecorativeBackground, StatsFooter } from "../_components";
 
 type Props = {
   data: WeatherDetail;
