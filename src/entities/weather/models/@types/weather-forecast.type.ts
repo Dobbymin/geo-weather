@@ -47,9 +47,15 @@ export type HourlyForecastData = {
   time: string;
   date: string;
   temp: number;
+  feelsLike: number;
+  humidity: number;
+  description: string;
   conditionEn: string;
   status: WeatherStatus;
+  icon: string;
   pop: number;
+  windSpeed: number;
+  isDay: boolean;
 };
 
 export type DailyForecastData = {

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { ForecastItem, WEATHER_DESCRIPTIONS, mapWeatherIdToStatus } from "@/entities";
+import { ForecastItem, mapWeatherIdToStatus } from "@/entities";
 import { WEATHER_PRO_API_BASE_URL, WEATHER_PRO_API_KEY } from "@/shared";
 
 export async function GET(request: NextRequest) {
@@ -47,7 +47,14 @@ export async function GET(request: NextRequest) {
     const dailyMap = new Map<string, { temps: number[] }>();
 
     data.list.forEach((item: ForecastItem) => {
-      const date = new Date(item.dt * 1000).toLocaleDateString("ko-KR");
+      const date = new Date(item.dt * 1000)
+        .toLocaleDateString("ko-KR", {
+          month: "numeric",
+          day: "numeric",
+        })
+        .replace(/\. /g, "/")
+        .replace(".", "");
+
       if (!dailyMap.has(date)) {
         dailyMap.set(date, { temps: [] });
       }
