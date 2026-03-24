@@ -14,8 +14,8 @@ type Props = {
   condition: string;
   high: number;
   low: number;
-  onEditAction?: (e: React.MouseEvent) => void;
-  onDeleteAction?: (e: React.MouseEvent) => void;
+  onEditClick?: (e: React.MouseEvent) => void;
+  onDeleteClick?: (e: React.MouseEvent) => void;
 };
 
 export const FavoritesCard = ({
@@ -26,8 +26,8 @@ export const FavoritesCard = ({
   condition,
   high,
   low,
-  onEditAction,
-  onDeleteAction,
+  onEditClick,
+  onDeleteClick,
 }: Props) => {
   const { icon: Icon, color } = getWeatherIcon(status);
 
@@ -53,7 +53,7 @@ export const FavoritesCard = ({
               <Button
                 variant='ghost'
                 size='icon'
-                onClick={onEditAction}
+                onClick={onEditClick}
                 className='size-8 rounded-full text-muted-foreground hover:bg-accent'
               >
                 <Edit2 size={14} />
@@ -61,7 +61,7 @@ export const FavoritesCard = ({
               <Button
                 variant='ghost'
                 size='icon'
-                onClick={onDeleteAction}
+                onClick={onDeleteClick}
                 className='size-8 rounded-full text-muted-foreground hover:bg-destructive/10 hover:text-destructive'
               >
                 <Trash2 size={14} />

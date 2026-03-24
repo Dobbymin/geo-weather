@@ -68,8 +68,8 @@ export const FavoriteItemCard = ({ item }: Props) => {
         condition={data.condition}
         high={data.highTemp}
         low={data.lowTemp}
-        onDeleteAction={handleDelete}
-        onEditAction={handleEditClick}
+        onDeleteClick={handleDelete}
+        onEditClick={handleEditClick}
       />
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

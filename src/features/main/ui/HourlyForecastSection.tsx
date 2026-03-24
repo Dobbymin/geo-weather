@@ -14,7 +14,7 @@ export const HourlyForecastSection = ({ lat, lon }: Props) => {
 
   return (
     <section aria-labelledby='hourly-forecast'>
-      <HourlyForecastTitle isExpanded={isExpanded} onToggle={() => setIsExpanded((prev) => !prev)} />
+      <HourlyForecastTitle isExpanded={isExpanded} onToggleClick={() => setIsExpanded((prev) => !prev)} />
       <HourlyForecastList isExpanded={isExpanded} lat={lat} lon={lon} />
     </section>
   );
