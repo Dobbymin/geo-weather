@@ -60,8 +60,8 @@ export function useWeatherDetail(locationId: string): { data: WeatherDetail | nu
     return {
       locationName: district.fullName,
       currentTemp: current.temp,
-      lowTemp: current.lowTemp,
-      highTemp: current.highTemp,
+      lowTemp: forecast.daily?.[0]?.lowTemp ?? current.lowTemp,
+      highTemp: forecast.daily?.[0]?.highTemp ?? current.highTemp,
       status: current.status,
       condition: current.description,
       conditionEn: current.conditionEn,
