@@ -1,32 +1,21 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
+import { useGeolocationStore } from "../stores";
 import { getGeolocationErrorMessage } from "../utils";
 
-import { useGeolocation, useSetGeolocationError, useSetLocation } from "./useGeolocation";
+import { useGeolocation } from "./useGeolocation";
 
 export const useGetGeolocation = () => {
   const geoState = useGeolocation();
-  const setLocation = useSetLocation();
-  const setError = useSetGeolocationError();
-
-  const stateRef = useRef(geoState);
-  const setLocationRef = useRef(setLocation);
-  const setErrorRef = useRef(setError);
 
   useEffect(() => {
-    stateRef.current = geoState;
-    setLocationRef.current = setLocation;
-    setErrorRef.current = setError;
-  });
-
-  useEffect(() => {
-    const { error, isLoading, timestamp } = stateRef.current;
+    const { error, isLoading, timestamp, setLocation, setError } = useGeolocationStore.getState();
 
     if (typeof navigator === "undefined" || !navigator.geolocation) {
       if (!error) {
-        setErrorRef.current("Geolocation을 지원하지 않는 브라우저입니다.");
+        setError("Geolocation을 지원하지 않는 브라우저입니다.");
       }
       return;
     }
@@ -38,10 +27,10 @@ export const useGetGeolocation = () => {
 
     navigator.geolocation.getCurrentPosition(
       ({ coords }) => {
-        setLocationRef.current(coords.latitude, coords.longitude);
+        setLocation(coords.latitude, coords.longitude);
       },
       (geoError) => {
-        setErrorRef.current(getGeolocationErrorMessage(geoError.code));
+        setError(getGeolocationErrorMessage(geoError.code));
       },
       { enableHighAccuracy: false, timeout: 5000, maximumAge: CACHE_DURATION },
     );
