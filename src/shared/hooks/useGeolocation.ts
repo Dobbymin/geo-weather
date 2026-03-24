@@ -1,54 +1,29 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 
-import { getGeolocationErrorMessage } from "../utils";
-
-type GeolocationState = {
-  lat: number | null;
-  lon: number | null;
-  error: string | null;
-  isLoading: boolean;
-};
-
-const getInitialState = (): GeolocationState => {
-  if (typeof navigator === "undefined" || !navigator.geolocation) {
-    return {
-      lat: null,
-      lon: null,
-      error: "Geolocation을 지원하지 않는 브라우저입니다.",
-      isLoading: false,
-    };
-  }
-  return { lat: null, lon: null, error: null, isLoading: true };
-};
+import { useGeolocationStore } from "../stores";
 
 export const useGeolocation = () => {
-  const [state, setState] = useState<GeolocationState>(getInitialState);
+  return useGeolocationStore(
+    useShallow((state) => ({
+      lat: state.lat,
+      lon: state.lon,
+      error: state.error,
+      isLoading: state.isLoading,
+      timestamp: state.timestamp,
+    })),
+  );
+};
 
-  useEffect(() => {
-    if (!navigator.geolocation) return; // 초기 상태에서 이미 처리됨
+export const useSetLocation = () => {
+  return useGeolocationStore((state) => state.setLocation);
+};
 
-    navigator.geolocation.getCurrentPosition(
-      ({ coords }) => {
-        setState({
-          lat: coords.latitude,
-          lon: coords.longitude,
-          error: null,
-          isLoading: false,
-        });
-      },
-      (error) => {
-        setState({
-          lat: null,
-          lon: null,
-          error: getGeolocationErrorMessage(error.code),
-          isLoading: false,
-        });
-      },
-      { enableHighAccuracy: false, timeout: 5000, maximumAge: 1000 * 60 * 5 },
-    );
-  }, []);
+export const useSetGeolocationError = () => {
+  return useGeolocationStore((state) => state.setError);
+};
 
-  return state;
+export const useSetGeolocationLoading = () => {
+  return useGeolocationStore((state) => state.setLoading);
 };
