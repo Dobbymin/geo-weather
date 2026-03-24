@@ -1,4 +1,4 @@
-import { DailyForecastData, ForecastCityData, HourlyForecastData } from "../@types";
+import { DailyForecastData, HourlyForecastData } from "../@types";
 
 export interface HourlyForecastParams {
   lat: number;
@@ -8,7 +8,6 @@ export interface HourlyForecastParams {
 export interface HourlyForecastResponse {
   hourly: HourlyForecastData[];
   daily: DailyForecastData[];
-  city: ForecastCityData;
 }
 
 export const getHourlyForecast = async ({ lat, lon }: HourlyForecastParams): Promise<HourlyForecastResponse> => {

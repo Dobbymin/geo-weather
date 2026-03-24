@@ -47,28 +47,13 @@ export type HourlyForecastData = {
   time: string;
   date: string;
   temp: number;
-  feelsLike: number;
-  humidity: number;
-  description: string;
   conditionEn: string;
   status: WeatherStatus;
-  icon: string;
   pop: number;
-  windSpeed: number;
-  isDay: boolean;
 };
 
 export type DailyForecastData = {
   date: string;
   lowTemp: number;
   highTemp: number;
-  description: string;
-  status: WeatherStatus;
-};
-
-export type ForecastCityData = {
-  name: string;
-  country: string;
-  sunrise: string;
-  sunset: string;
 };

@@ -25,9 +25,6 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       locationName: region.address_name, // 예: "서울특별시 종로구 청운동"
-      region1: region.region_1depth_name, // 예: "서울특별시"
-      region2: region.region_2depth_name, // 예: "종로구"
-      region3: region.region_3depth_name, // 예: "청운동"
     });
   } catch (err) {
     console.error("Failed to fetch location:", err);

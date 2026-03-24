@@ -29,7 +29,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       description: WEATHER_DESCRIPTIONS[weatherId] || data.weather[0].description,
       conditionEn: data.weather[0].main,
-      name: data.name,
       temp: Math.round(data.main.temp),
       lowTemp: Math.round(data.main.temp_min),
       highTemp: Math.round(data.main.temp_max),
