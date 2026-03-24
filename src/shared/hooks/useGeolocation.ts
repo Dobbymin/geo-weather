@@ -11,16 +11,23 @@ type GeolocationState = {
   isLoading: boolean;
 };
 
+const getInitialState = (): GeolocationState => {
+  if (typeof navigator === "undefined" || !navigator.geolocation) {
+    return {
+      lat: null,
+      lon: null,
+      error: "Geolocation을 지원하지 않는 브라우저입니다.",
+      isLoading: false,
+    };
+  }
+  return { lat: null, lon: null, error: null, isLoading: true };
+};
+
 export const useGeolocation = () => {
-  const [state, setState] = useState<GeolocationState>({
-    lat: null,
-    lon: null,
-    error: null,
-    isLoading: true,
-  });
+  const [state, setState] = useState<GeolocationState>(getInitialState);
 
   useEffect(() => {
-    if (!navigator.geolocation) return;
+    if (!navigator.geolocation) return; // 초기 상태에서 이미 처리됨
 
     navigator.geolocation.getCurrentPosition(
       ({ coords }) => {
@@ -39,7 +46,7 @@ export const useGeolocation = () => {
           isLoading: false,
         });
       },
-      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 },
+      { enableHighAccuracy: false, timeout: 5000, maximumAge: 1000 * 60 * 5 },
     );
   }, []);
 
