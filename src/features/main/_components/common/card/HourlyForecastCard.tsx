@@ -29,7 +29,7 @@ export const HourlyForecastCard = ({ date, time, status, temp, isActive = false 
         </span>
         <span
           className={cn(
-            "text-xs font-bold tracking-[1.2px] uppercase",
+            "text-xs font-bold uppercase",
             isActive ? "text-primary-foreground/80" : "text-muted-foreground",
           )}
         >
