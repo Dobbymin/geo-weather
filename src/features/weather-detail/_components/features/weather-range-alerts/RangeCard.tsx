@@ -1,11 +1,31 @@
-import { cn } from "@/shared";
+import { Skeleton, cn } from "@/shared";
 
 type Props = {
-  lowTemp: number;
-  highTemp: number;
+  lowTemp?: number;
+  highTemp?: number;
+  isLoading?: boolean;
 };
 
-export const RangeCard = ({ lowTemp, highTemp }: Props) => {
+export const RangeCard = ({ lowTemp, highTemp, isLoading }: Props) => {
+  if (isLoading || lowTemp === undefined || highTemp === undefined) {
+    return (
+      <div className='gradient-primary relative flex flex-col items-start justify-center rounded-[12px] p-8 shadow-lg'>
+        <Skeleton className='mb-4 h-4 w-24 bg-primary-foreground/30' />
+        <div className='flex w-full items-center justify-between'>
+          <div className='flex flex-col gap-2'>
+            <Skeleton className='h-3 w-10 bg-primary-foreground/25' />
+            <Skeleton className='h-8 w-18 bg-primary-foreground/35' />
+          </div>
+          <div className='h-12 w-px bg-primary-foreground/20' />
+          <div className='flex flex-col items-end gap-2'>
+            <Skeleton className='h-3 w-10 bg-primary-foreground/25' />
+            <Skeleton className='h-8 w-18 bg-primary-foreground/35' />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       className={cn("gradient-primary relative flex flex-col items-start justify-center rounded-[12px] p-8 shadow-lg")}

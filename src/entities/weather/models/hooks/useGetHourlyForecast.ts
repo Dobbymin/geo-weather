@@ -6,7 +6,7 @@ import { HourlyForecastParams, getHourlyForecast } from "../apis";
 
 export const useGetHourlyForecast = ({ lat, lon }: HourlyForecastParams) => {
   return useQuery({
-    queryKey: ["hourlyForecast", lat, lon],
+    queryKey: ["hourlyForecast1h", lat, lon],
     queryFn: () => getHourlyForecast({ lat, lon }),
 
     staleTime: 1000 * 60 * 60, // 1시간

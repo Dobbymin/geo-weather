@@ -2,9 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { ROUTE_PATH } from "@/shared";
-import { LocationSearch } from "@/features";
 
-import { HeaderActionButtons } from "../common";
+import { HeaderActionButtons, LocationSearch } from "../components";
 
 export const MainHeader = () => {
   return (

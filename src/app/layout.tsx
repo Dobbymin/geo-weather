@@ -2,7 +2,7 @@ import { Manrope, Plus_Jakarta_Sans } from "next/font/google";
 import localFont from "next/font/local";
 
 import { AppProvider } from "@/shared";
-import { Footer, Header } from "@/widgets";
+import { Footer } from "@/widgets";
 import type { Metadata } from "next";
 
 import "./globals.css";
@@ -44,7 +44,6 @@ export default function RootLayout({
     >
       <body suppressHydrationWarning className='flex min-h-full flex-col bg-background font-body text-foreground'>
         <AppProvider>
-          <Header />
           <main className='mx-auto mt-18 w-full max-w-7xl flex-1 px-6 py-8'>{children}</main>
           <Footer />
         </AppProvider>

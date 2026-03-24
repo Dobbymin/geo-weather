@@ -1,11 +1,32 @@
 import { Moon, Sun } from "lucide-react";
+import { Skeleton } from "@/shared";
 
 type Props = {
-  sunrise: string;
-  sunset: string;
+  sunrise?: string;
+  sunset?: string;
+  isLoading?: boolean;
 };
 
-export const SunriseSunset = ({ sunrise, sunset }: Props) => {
+export const SunriseSunset = ({ sunrise, sunset, isLoading }: Props) => {
+  if (isLoading || !sunrise || !sunset) {
+    return (
+      <div className='flex flex-col gap-4 rounded-[12px] bg-muted p-6'>
+        <Skeleton className='h-4 w-24' />
+        <div className='flex items-center justify-between'>
+          <div className='flex flex-col items-center gap-2'>
+            <Skeleton className='size-6 rounded-full' />
+            <Skeleton className='h-5 w-14' />
+          </div>
+          <Skeleton className='h-0.5 w-12' />
+          <div className='flex flex-col items-center gap-2'>
+            <Skeleton className='size-6 rounded-full' />
+            <Skeleton className='h-5 w-14' />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className='flex flex-col gap-4 rounded-[12px] bg-muted p-6'>
       <p className='text-sm font-bold tracking-[1.6px] text-muted-foreground uppercase'>일출 & 일몰</p>

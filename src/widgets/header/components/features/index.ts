@@ -1,2 +1,2 @@
-export * from "./MainHeader";
-export * from "./DetailHeader";
+export * from "./action-button";
+export * from "./location-search";
