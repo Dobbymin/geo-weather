@@ -9,5 +9,7 @@ export const useGetCurrentWeather = ({ lat, lon }: CurrentWeatherParams) => {
     queryKey: ["current-weather", lat, lon],
     queryFn: () => getCurrentWeather({ lat: lat!, lon: lon! }),
     enabled: !!lat && !!lon,
+    staleTime: 1000 * 60 * 10, // 10분
+    gcTime: 1000 * 60 * 15, // 15분
   });
 };

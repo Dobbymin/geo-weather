@@ -3,7 +3,7 @@
 import { type WeatherDetail } from "@/entities";
 import { Badge, Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/shared";
 
-import { HourlyForecastChart } from "../components";
+import { HourlyForecastChart } from "../_components";
 
 type Props = {
   data: WeatherDetail;

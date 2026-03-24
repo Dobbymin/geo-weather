@@ -1,6 +1,6 @@
 import { type WeatherDetail } from "@/entities";
 
-import { BentoCard, SunriseSunset } from "../components";
+import { BentoCard, SunriseSunset } from "../_components";
 
 type Props = {
   data: WeatherDetail;

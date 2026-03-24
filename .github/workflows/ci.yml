@@ -1,4 +1,4 @@
-name: Build Test
+name: Type Test
 
 on:
   pull_request:
@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
-    name: build test
+  type-test:
+    name: type test
     runs-on: ubuntu-latest
 
     steps:
@@ -30,6 +30,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build Test
-        run: pnpm run build
+      - name: Type Check
+        run: pnpm run tsc
+
+      - name: Lint Check
+        run: pnpm run lint
         

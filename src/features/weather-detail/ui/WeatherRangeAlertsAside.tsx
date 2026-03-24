@@ -1,7 +1,7 @@
 import { type WeatherDetail } from "@/entities";
 import { CloudRain, Thermometer } from "lucide-react";
 
-import { AlertCard, RangeCard } from "../components";
+import { AlertCard, RangeCard } from "../_components";
 
 type Props = {
   data: WeatherDetail;
