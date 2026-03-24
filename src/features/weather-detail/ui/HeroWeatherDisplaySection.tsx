@@ -20,11 +20,11 @@ export const HeroWeatherDisplaySection = ({ data, isLoading }: Props) => {
         conditionEn={data?.conditionEn}
         status={data?.status}
       />
-      <StatsFooter 
+      <StatsFooter
         isLoading={isLoading}
-        humidity={data?.humidity} 
-        windSpeed={data?.windSpeed} 
-        uvIndex={data?.uvIndex} 
+        humidity={data?.humidity}
+        windSpeed={data?.windSpeed}
+        uvIndex={data?.uvIndex}
       />
     </Card>
   );

@@ -1,6 +1,7 @@
 import { useState } from "react";
+
 import { useWeatherDetail } from "@/entities";
-import { useRemoveFavorite, useUpdateAlias, type FavoriteItem } from "@/shared";
+import { type FavoriteItem, useRemoveFavorite, useUpdateAlias } from "@/shared";
 
 export const useFavoriteItem = (item: FavoriteItem) => {
   const { data, isLoading } = useWeatherDetail(item.id);

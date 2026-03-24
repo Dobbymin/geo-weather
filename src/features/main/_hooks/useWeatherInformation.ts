@@ -1,6 +1,7 @@
 import { useEffect } from "react";
-import { toast } from "sonner";
+
 import { useGetCurrentWeather, useGetLocation } from "@/entities";
+import { toast } from "sonner";
 
 type Params = {
   lat?: number;
@@ -10,16 +11,9 @@ type Params = {
 };
 
 export const useWeatherInformation = ({ lat, lon, isGeoLocationLoading, geoLocationError }: Params) => {
-  const { 
-    data: currentWeatherData, 
-    isPending, 
-    isError 
-  } = useGetCurrentWeather({ lat: lat!, lon: lon! });
+  const { data: currentWeatherData, isPending, isError } = useGetCurrentWeather({ lat: lat!, lon: lon! });
 
-  const { 
-    data: locationData, 
-    isPending: isLocationPending 
-  } = useGetLocation({ lat: lat!, lon: lon! });
+  const { data: locationData, isPending: isLocationPending } = useGetLocation({ lat: lat!, lon: lon! });
 
   useEffect(() => {
     if (geoLocationError) {

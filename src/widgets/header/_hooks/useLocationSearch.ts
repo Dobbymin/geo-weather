@@ -1,5 +1,7 @@
 import { useRouter } from "next/navigation";
+
 import { useEffect, useMemo, useRef, useState } from "react";
+
 import { KOREA_DISTRICTS_WITH_COORDS } from "@/entities";
 import { DYNAMIC_ROUTE_PATH, useDebounce } from "@/shared";
 

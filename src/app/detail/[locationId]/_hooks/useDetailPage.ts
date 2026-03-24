@@ -1,4 +1,5 @@
 import { use } from "react";
+
 import { useWeatherDetail } from "@/entities";
 
 export const useDetailPage = (params: Promise<{ locationId: string }>) => {

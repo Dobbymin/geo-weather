@@ -7,6 +7,7 @@ import {
   WeatherRangeAlertsAside,
 } from "@/features";
 import { Button } from "@/shared";
+
 import { useDetailPage } from "./_hooks/useDetailPage";
 
 type Props = {

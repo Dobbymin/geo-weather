@@ -35,4 +35,3 @@ export const DetailHeader = ({ locationId, locationName }: Props) => {
     </div>
   );
 };
-

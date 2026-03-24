@@ -1,5 +1,6 @@
 import { Button } from "@/shared";
 import { ArrowRight, ChevronUp } from "lucide-react";
+
 import { TitleText } from "../../common";
 
 type Props = {
@@ -13,7 +14,7 @@ export const HourlyForecastTitle = ({ isExpanded, onToggleClick }: Props) => {
       <TitleText id='hourly-forecast-title' title='시간별 예보' />
       <Button
         variant='link'
-        className='text-primary flex h-auto items-center gap-1 p-0 font-bold hover:no-underline'
+        className='flex h-auto items-center gap-1 p-0 font-bold text-primary hover:no-underline'
         onClick={onToggleClick}
       >
         {isExpanded ? "접기" : "전체보기"}

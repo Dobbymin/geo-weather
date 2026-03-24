@@ -13,8 +13,8 @@ import {
   Label,
 } from "@/shared";
 
-import { FavoritesCard } from "../../common";
 import { useFavoriteItem } from "../../../_hooks/useFavoriteItem";
+import { FavoritesCard } from "../../common";
 
 type Props = {
   item: FavoriteItem;

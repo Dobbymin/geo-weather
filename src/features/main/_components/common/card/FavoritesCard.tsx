@@ -18,17 +18,7 @@ type Props = {
   onDeleteClick?: (e: React.MouseEvent) => void;
 };
 
-export const FavoritesCard = ({
-  id,
-  name,
-  temp,
-  status,
-  condition,
-  high,
-  low,
-  onEditClick,
-  onDeleteClick,
-}: Props) => {
+export const FavoritesCard = ({ id, name, temp, status, condition, high, low, onEditClick, onDeleteClick }: Props) => {
   const { icon: Icon, color } = getWeatherIcon(status);
 
   return (
