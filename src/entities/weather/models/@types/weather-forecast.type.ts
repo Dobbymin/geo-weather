@@ -62,13 +62,4 @@ export type DailyForecastData = {
   date: string;
   lowTemp: number;
   highTemp: number;
-  description: string;
-  status: WeatherStatus;
-};
-
-export type ForecastCityData = {
-  name: string;
-  country: string;
-  sunrise: string;
-  sunset: string;
 };

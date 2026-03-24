@@ -5,9 +5,6 @@ export interface LocationParams {
 
 export interface LocationResponse {
   locationName: string;
-  region1: string;
-  region2: string;
-  region3: string;
 }
 
 export const getLocation = async ({ lat, lon }: LocationParams): Promise<LocationResponse> => {
