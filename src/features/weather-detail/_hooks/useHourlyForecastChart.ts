@@ -1,18 +1,23 @@
 import { useMemo } from "react";
+
 import { type WeatherDetail } from "@/entities";
 import { ChartConfig } from "@/shared";
 
 export const useHourlyForecastChart = (data?: WeatherDetail | null) => {
-  const chartConfig = useMemo(() => ({
-    temp: {
-      label: "기온",
-      color: "#b8c5ff",
-    },
-    pop: {
-      label: "강수",
-      color: "#c4efff",
-    },
-  } satisfies ChartConfig), []);
+  const chartConfig = useMemo(
+    () =>
+      ({
+        temp: {
+          label: "기온",
+          color: "#b8c5ff",
+        },
+        pop: {
+          label: "강수",
+          color: "#c4efff",
+        },
+      }) satisfies ChartConfig,
+    [],
+  );
 
   const chartData = useMemo(() => {
     if (!data) return [];

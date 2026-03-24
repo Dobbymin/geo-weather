@@ -2,8 +2,8 @@ import { WeatherDetail } from "@/entities";
 import { ChartContainer, ChartTooltip, Skeleton } from "@/shared";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
-import { CustomCursor, CustomTooltip } from "../../common";
 import { useHourlyForecastChart } from "../../../_hooks/useHourlyForecastChart";
+import { CustomCursor, CustomTooltip } from "../../common";
 
 type Props = {
   data?: WeatherDetail | null;
@@ -28,7 +28,7 @@ export const HourlyForecastChart = ({ data, isLoading }: Props) => {
           ))}
         </div>
 
-        <div className='absolute right-6 bottom-4 left-12 flex justify-between w-[calc(100%-80px)]'>
+        <div className='absolute right-6 bottom-4 left-12 flex w-[calc(100%-80px)] justify-between'>
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className='flex flex-col items-center gap-1'>
               <Skeleton className='h-2 w-6' />

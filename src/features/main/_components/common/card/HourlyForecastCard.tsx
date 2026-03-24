@@ -1,16 +1,17 @@
 import { type WeatherStatus, getWeatherIcon } from "@/entities";
-import { cn } from "@/shared";
+import { Skeleton, cn } from "@/shared";
 
 type Props = {
-  date: string;
-  time: string;
-  status: WeatherStatus;
-  temp: number;
+  date?: string;
+  time?: string;
+  status?: WeatherStatus;
+  temp?: number;
   isActive?: boolean;
+  isLoading?: boolean;
 };
 
-export const HourlyForecastCard = ({ date, time, status, temp, isActive = false }: Props) => {
-  const { icon: Icon, color } = getWeatherIcon(status);
+export const HourlyForecastCard = ({ date, time, status, temp, isActive = false, isLoading = false }: Props) => {
+  const { icon: Icon, color } = getWeatherIcon(status || "CLEAR");
 
   return (
     <div
@@ -22,26 +23,38 @@ export const HourlyForecastCard = ({ date, time, status, temp, isActive = false 
       )}
     >
       <div className='flex flex-col items-center gap-2'>
-        <span
-          className={cn("text-sm font-medium", isActive ? "text-primary-foreground/60" : "text-muted-foreground/60")}
-        >
-          {date}
-        </span>
-        <span
-          className={cn(
-            "text-xs font-bold uppercase",
-            isActive ? "text-primary-foreground/80" : "text-muted-foreground",
-          )}
-        >
-          {time}
-        </span>
+        {isLoading ? (
+          <Skeleton className='h-4 w-8 rounded' />
+        ) : (
+          <span
+            className={cn("text-sm font-medium", isActive ? "text-primary-foreground/60" : "text-muted-foreground/60")}
+          >
+            {date}
+          </span>
+        )}
+        {isLoading ? (
+          <Skeleton className='h-3 w-10 rounded' />
+        ) : (
+          <span
+            className={cn(
+              "text-xs font-bold uppercase",
+              isActive ? "text-primary-foreground/80" : "text-muted-foreground",
+            )}
+          >
+            {time}
+          </span>
+        )}
       </div>
 
       <div className={cn("size-7", isActive ? "text-primary-foreground" : color)}>
-        <Icon className='size-full' />
+        {isLoading ? <Skeleton className='size-full rounded-full' /> : <Icon className='size-full' />}
       </div>
 
-      <span className='font-display text-2xl leading-8 font-bold'>{temp}°</span>
+      {isLoading ? (
+        <Skeleton className='h-8 w-10 rounded' />
+      ) : (
+        <span className='font-display text-2xl leading-8 font-bold'>{temp}°</span>
+      )}
     </div>
   );
 };

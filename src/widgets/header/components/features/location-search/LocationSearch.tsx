@@ -2,19 +2,12 @@
 
 import { Input } from "@/shared";
 import { Search } from "lucide-react";
+
 import { useLocationSearch } from "../../../_hooks/useLocationSearch";
 
 export const LocationSearch = () => {
-  const {
-    searchTerm,
-    isOpen,
-    results,
-    containerRef,
-    handleSelect,
-    handleChange,
-    handleKeyDown,
-    handleFocus,
-  } = useLocationSearch();
+  const { searchTerm, isOpen, results, containerRef, handleSelect, handleChange, handleKeyDown, handleFocus } =
+    useLocationSearch();
 
   return (
     <div ref={containerRef} className='relative w-full max-w-50 md:max-w-none'>

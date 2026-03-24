@@ -3,7 +3,7 @@
 import { Skeleton } from "@/shared";
 
 import { CurrentWeather, WeatherInformationTitle } from "../_components";
-import { useWeatherInformation } from "../_hooks";
+import { useIsHydrated, useWeatherInformation } from "../_hooks";
 
 type Props = {
   lat?: number;
@@ -13,6 +13,7 @@ type Props = {
 };
 
 export const WeatherInformationSection = ({ lat, lon, isGeoLocationLoading, geoLocationError }: Props) => {
+  const isHydrated = useIsHydrated();
   const { currentWeatherData, locationData, isLoading, isError } = useWeatherInformation({
     lat,
     lon,
@@ -20,18 +21,7 @@ export const WeatherInformationSection = ({ lat, lon, isGeoLocationLoading, geoL
     geoLocationError,
   });
 
-  if (isLoading) {
-    return (
-      <section aria-labelledby='weather-information'>
-        <WeatherInformationTitle />
-        <div className='relative'>
-          <Skeleton className='h-59 w-full rounded-[40px] md:h-69' />
-        </div>
-      </section>
-    );
-  }
-
-  if (isError || !currentWeatherData) {
+  if (isError) {
     return (
       <section aria-labelledby='weather-information'>
         <WeatherInformationTitle />
@@ -43,16 +33,28 @@ export const WeatherInformationSection = ({ lat, lon, isGeoLocationLoading, geoL
     );
   }
 
+  if (!isHydrated) {
+    return (
+      <section aria-labelledby='weather-information'>
+        <WeatherInformationTitle />
+        <div className='relative'>
+          <Skeleton className='h-59 w-full rounded-[40px] md:h-69' />
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section aria-labelledby='weather-information'>
       <WeatherInformationTitle />
       <CurrentWeather
-        name={locationData?.locationName || ""}
-        temp={currentWeatherData.temp}
-        status={currentWeatherData.status}
-        description={currentWeatherData.description}
-        lowTemp={currentWeatherData.lowTemp}
-        highTemp={currentWeatherData.highTemp}
+        isLoading={isLoading}
+        name={locationData?.locationName}
+        temp={currentWeatherData?.temp}
+        status={currentWeatherData?.status}
+        description={currentWeatherData?.description}
+        lowTemp={currentWeatherData?.lowTemp}
+        highTemp={currentWeatherData?.highTemp}
       />
     </section>
   );

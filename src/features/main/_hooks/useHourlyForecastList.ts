@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from "react";
-import { toast } from "sonner";
+
 import { useGetHourlyForecast } from "@/entities";
+import { toast } from "sonner";
 
 type Params = {
   isExpanded: boolean;
