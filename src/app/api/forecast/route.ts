@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { ForecastItem, WEATHER_DESCRIPTIONS, mapWeatherIdToStatus } from "@/entities";
-import { WEATHER_API_BASE_URL, WEATHER_API_KEY } from "@/shared";
+import { WEATHER_PRO_API_BASE_URL, WEATHER_PRO_API_KEY } from "@/shared";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const url = `${WEATHER_API_BASE_URL}/forecast?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=metric`;
+    const url = `${WEATHER_PRO_API_BASE_URL}/forecast/hourly?lat=${lat}&lon=${lon}&appid=${WEATHER_PRO_API_KEY}&units=metric`;
     const res = await fetch(url);
 
     if (!res.ok) {
