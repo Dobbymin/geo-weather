@@ -1,10 +1,10 @@
 "use client";
 
 import { FavoritesSection, HourlyForecastSection, WeatherInformationSection } from "@/features";
-import { useGeolocation } from "@/shared";
+import { useGetGeolocation } from "@/shared";
 
 export default function Home() {
-  const { lat, lon, error, isLoading: isGeolocationLoading } = useGeolocation();
+  const { lat, lon, error, isLoading: isGeolocationLoading } = useGetGeolocation();
 
   return (
     <main className='flex flex-col gap-8 pb-12 md:gap-12'>
