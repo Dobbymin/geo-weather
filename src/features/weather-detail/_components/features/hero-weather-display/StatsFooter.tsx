@@ -8,7 +8,7 @@ type Props = {
 
 export const StatsFooter = ({ humidity, windSpeed, uvIndex }: Props) => {
   return (
-    <div className='relative z-10 mt-8 grid grid-cols-3 gap-4 border-t border-border pt-8'>
+    <div className='relative z-10 mt-2 grid grid-cols-3 gap-4 border-t border-border pt-4 md:mt-10 md:pt-8'>
       <div className='flex flex-col gap-1'>
         <p className='text-sm font-bold tracking-[1.6px] text-muted-foreground uppercase'>습도</p>
         <p className='font-display text-xl font-bold text-foreground'>{`${humidity}%`}</p>

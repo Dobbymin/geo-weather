@@ -56,11 +56,11 @@ export const CurrentWeather = ({
 
           <div className='mt-2 flex items-center gap-4 text-sm text-primary-foreground md:mt-4'>
             <div className='flex items-center gap-1'>
-              <span className='opacity-70'>Low</span>
+              <span className='opacity-70'>최저</span>
               <span className='font-bold'>{lowTemp}&#176;</span>
             </div>
             <div className='flex items-center gap-1'>
-              <span className='opacity-70'>High</span>
+              <span className='opacity-70'>최고</span>
               <span className='font-bold'>{highTemp}&#176;</span>
             </div>
           </div>
