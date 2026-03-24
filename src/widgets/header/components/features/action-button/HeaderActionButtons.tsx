@@ -1,9 +1,8 @@
 "use client";
 
-import { Button, useAddFavorite, useCheckIsFavorite, useIsHydrated, useRemoveFavorite } from "@/shared";
-import { cn } from "@/shared";
+import { Button, cn } from "@/shared";
 import { Star } from "lucide-react";
-import { toast } from "sonner";
+import { useHeaderActionButtons } from "../../../_hooks/useHeaderActionButtons";
 
 type Props = {
   locationId?: string;
@@ -11,29 +10,7 @@ type Props = {
 };
 
 export const HeaderActionButtons = ({ locationId, locationName }: Props) => {
-  const isHydrated = useIsHydrated();
-  const addFavorite = useAddFavorite();
-  const removeFavorite = useRemoveFavorite();
-  const checkIsFavorite = useCheckIsFavorite(locationId || "");
-  const isFav = isHydrated ? checkIsFavorite : false;
-
-  const handleToggleFavorite = () => {
-    if (!locationId || !locationName) return;
-
-    if (isFav) {
-      removeFavorite(locationId);
-      toast.info("즐겨찾기에서 제거되었습니다.");
-      return;
-    }
-
-    const isSuccess = addFavorite({ id: locationId, name: locationName });
-
-    if (isSuccess) {
-      toast.success("즐겨찾기에 추가되었습니다.");
-    } else {
-      toast.error("최대 6개까지만 즐겨찾기에 추가할 수 있습니다.");
-    }
-  };
+  const { isFav, handleToggleFavorite } = useHeaderActionButtons({ locationId, locationName });
 
   return (
     <div className='flex items-center gap-2'>

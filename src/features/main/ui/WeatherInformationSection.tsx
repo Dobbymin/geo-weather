@@ -1,12 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
-
-import { useGetCurrentWeather, useGetLocation } from "@/entities";
 import { Skeleton } from "@/shared";
-import { toast } from "sonner";
 
 import { CurrentWeather, WeatherInformationTitle } from "../_components";
+import { useWeatherInformation } from "../_hooks";
 
 type Props = {
   lat?: number;
@@ -16,17 +13,14 @@ type Props = {
 };
 
 export const WeatherInformationSection = ({ lat, lon, isGeoLocationLoading, geoLocationError }: Props) => {
-  const { data: currentWeatherData, isPending, isError } = useGetCurrentWeather({ lat: lat!, lon: lon! });
+  const { currentWeatherData, locationData, isLoading, isError } = useWeatherInformation({
+    lat,
+    lon,
+    isGeoLocationLoading,
+    geoLocationError,
+  });
 
-  const { data: locationData, isPending: isLocationPending } = useGetLocation({ lat: lat!, lon: lon! });
-
-  useEffect(() => {
-    if (geoLocationError) {
-      toast.error(geoLocationError);
-    }
-  }, [geoLocationError]);
-
-  if (isGeoLocationLoading || isPending || isLocationPending) {
+  if (isLoading) {
     return (
       <section aria-labelledby='weather-information'>
         <WeatherInformationTitle />
@@ -37,7 +31,7 @@ export const WeatherInformationSection = ({ lat, lon, isGeoLocationLoading, geoL
     );
   }
 
-  if (isError || geoLocationError || !currentWeatherData) {
+  if (isError || !currentWeatherData) {
     return (
       <section aria-labelledby='weather-information'>
         <WeatherInformationTitle />
