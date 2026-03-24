@@ -20,11 +20,11 @@ const sessionStorageWrapper: StateStorage = {
 };
 
 const initialState = {
-  lat: null! as number | null,
-  lon: null! as number | null,
+  lat: null as number | null,
+  lon: null as number | null,
   error: null as string | null,
   isLoading: true,
-  timestamp: null! as number | null,
+  timestamp: null as number | null,
 };
 
 export const useGeolocationStore = create(
