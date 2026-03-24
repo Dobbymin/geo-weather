@@ -6,8 +6,6 @@ import { useGetCurrentWeather, useGetLocation } from "@/entities";
 import { Skeleton } from "@/shared";
 import { toast } from "sonner";
 
-import { Spinner } from "@/shared/components/ui/spinner";
-
 import { CurrentWeather, WeatherInformationTitle } from "../_components";
 
 type Props = {
@@ -34,18 +32,11 @@ export const WeatherInformationSection = ({ lat, lon, isGeoLocationLoading, geoL
         <WeatherInformationTitle />
         <div className='relative'>
           <Skeleton className='h-59 w-full rounded-[40px] md:h-69' />
-          {isGeoLocationLoading && (
-            <div className='absolute inset-0 flex flex-col items-center justify-center gap-2'>
-              <Spinner size={32} />
-              <p className='text-sm font-medium text-muted-foreground'>위치 정보를 가져오는 중입니다...</p>
-            </div>
-          )}
         </div>
       </section>
     );
   }
 
-  // 2단계: API 실패 또는 위치 권한 거부 후 데이터 없음 → 에러 안내
   if (isError || geoLocationError || !currentWeatherData) {
     return (
       <section aria-labelledby='weather-information'>
