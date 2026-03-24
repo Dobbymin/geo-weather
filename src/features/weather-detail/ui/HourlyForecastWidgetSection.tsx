@@ -6,10 +6,11 @@ import { Badge, Card, CardContent, CardDescription, CardHeader, CardTitle } from
 import { HourlyForecastChart } from "../_components";
 
 type Props = {
-  data: WeatherDetail;
+  data?: WeatherDetail | null;
+  isLoading?: boolean;
 };
 
-export const HourlyForecastWidgetSection = ({ data }: Props) => {
+export const HourlyForecastWidgetSection = ({ data, isLoading }: Props) => {
   return (
     <Card className='rounded-[24px] border-none bg-card p-2 shadow-[0px_12px_40px_0px_rgba(25,28,29,0.06)]'>
       <CardHeader className='flex flex-row items-end justify-between gap-4 space-y-0 p-6 pb-4'>
@@ -30,8 +31,8 @@ export const HourlyForecastWidgetSection = ({ data }: Props) => {
       </CardHeader>
 
       <CardContent className='p-0'>
-        <div className='scrollbar-hide overflow-x-auto px-6 pb-6'>
-          <HourlyForecastChart data={data} />
+        <div className='scrollbar-hide overflow-x-auto px-0'>
+          <HourlyForecastChart isLoading={isLoading} data={data} />
         </div>
       </CardContent>
     </Card>

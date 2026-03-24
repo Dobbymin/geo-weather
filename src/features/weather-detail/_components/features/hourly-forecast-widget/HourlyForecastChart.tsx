@@ -1,14 +1,42 @@
 import { WeatherDetail } from "@/entities";
-import { ChartConfig, ChartContainer, ChartTooltip } from "@/shared";
+import { ChartConfig, ChartContainer, ChartTooltip, Skeleton } from "@/shared";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 import { CustomCursor, CustomTooltip } from "../../common";
 
 type Props = {
-  data: WeatherDetail;
+  data?: WeatherDetail | null;
+  isLoading?: boolean;
 };
 
-export const HourlyForecastChart = ({ data }: Props) => {
+export const HourlyForecastChart = ({ data, isLoading }: Props) => {
+  if (isLoading || !data) {
+    return (
+      <div className='relative mt-4 h-[300px] rounded-xl border border-border/40 bg-muted/20 p-4'>
+        <div className='pointer-events-none absolute inset-x-4 top-10 flex flex-col gap-6'>
+          {[1, 2, 3, 4].map((line) => (
+            <div key={line} className='h-px w-full border-t border-dashed border-border/50' />
+          ))}
+        </div>
+
+        <div className='absolute right-6 bottom-16 left-12 flex items-end gap-2'>
+          {[48, 72, 56, 88, 70, 98, 84, 108, 76, 92, 66, 80].map((height, i) => (
+            <Skeleton key={i} className='w-4 rounded-t-md' style={{ height: `${height}px` }} />
+          ))}
+        </div>
+
+        <div className='absolute right-6 bottom-4 left-12 flex justify-between w-[calc(100%-80px)]'>
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className='flex flex-col items-center gap-1'>
+              <Skeleton className='h-2 w-6' />
+              <Skeleton className='h-2.5 w-8' />
+              <Skeleton className='h-2 w-5' />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
   const chartConfig = {
     temp: {
       label: "기온",
