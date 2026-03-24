@@ -1,12 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
-
-import { useGetCurrentWeather, useGetLocation } from "@/entities";
 import { Skeleton } from "@/shared";
-import { toast } from "sonner";
 
 import { CurrentWeather, WeatherInformationTitle } from "../_components";
+import { useIsHydrated, useWeatherInformation } from "../_hooks";
 
 type Props = {
   lat?: number;
@@ -16,28 +13,15 @@ type Props = {
 };
 
 export const WeatherInformationSection = ({ lat, lon, isGeoLocationLoading, geoLocationError }: Props) => {
-  const { data: currentWeatherData, isPending, isError } = useGetCurrentWeather({ lat: lat!, lon: lon! });
+  const isHydrated = useIsHydrated();
+  const { currentWeatherData, locationData, isLoading, isError } = useWeatherInformation({
+    lat,
+    lon,
+    isGeoLocationLoading,
+    geoLocationError,
+  });
 
-  const { data: locationData, isPending: isLocationPending } = useGetLocation({ lat: lat!, lon: lon! });
-
-  useEffect(() => {
-    if (geoLocationError) {
-      toast.error(geoLocationError);
-    }
-  }, [geoLocationError]);
-
-  if (isGeoLocationLoading || isPending || isLocationPending) {
-    return (
-      <section aria-labelledby='weather-information'>
-        <WeatherInformationTitle />
-        <div className='relative'>
-          <Skeleton className='h-59 w-full rounded-[40px] md:h-69' />
-        </div>
-      </section>
-    );
-  }
-
-  if (isError || geoLocationError || !currentWeatherData) {
+  if (isError) {
     return (
       <section aria-labelledby='weather-information'>
         <WeatherInformationTitle />
@@ -49,16 +33,28 @@ export const WeatherInformationSection = ({ lat, lon, isGeoLocationLoading, geoL
     );
   }
 
+  if (!isHydrated) {
+    return (
+      <section aria-labelledby='weather-information'>
+        <WeatherInformationTitle />
+        <div className='relative'>
+          <Skeleton className='h-59 w-full rounded-[40px] md:h-69' />
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section aria-labelledby='weather-information'>
       <WeatherInformationTitle />
       <CurrentWeather
-        name={locationData?.locationName || ""}
-        temp={currentWeatherData.temp}
-        status={currentWeatherData.status}
-        description={currentWeatherData.description}
-        lowTemp={currentWeatherData.lowTemp}
-        highTemp={currentWeatherData.highTemp}
+        isLoading={isLoading}
+        name={locationData?.locationName}
+        temp={currentWeatherData?.temp}
+        status={currentWeatherData?.status}
+        description={currentWeatherData?.description}
+        lowTemp={currentWeatherData?.lowTemp}
+        highTemp={currentWeatherData?.highTemp}
       />
     </section>
   );

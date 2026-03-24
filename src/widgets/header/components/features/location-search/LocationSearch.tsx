@@ -1,59 +1,13 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
-import { useEffect, useMemo, useRef, useState } from "react";
-
-import { KOREA_DISTRICTS_WITH_COORDS } from "@/entities";
-import { DYNAMIC_ROUTE_PATH, Input, useDebounce } from "@/shared";
+import { Input } from "@/shared";
 import { Search } from "lucide-react";
 
+import { useLocationSearch } from "../../../_hooks/useLocationSearch";
+
 export const LocationSearch = () => {
-  const router = useRouter();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
-  const debouncedSearchTerm = useDebounce(searchTerm, 300);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const results = useMemo(() => {
-    if (debouncedSearchTerm.length < 2) return [];
-
-    return KOREA_DISTRICTS_WITH_COORDS.filter(
-      (district) => district.fullName.includes(debouncedSearchTerm) || district.name.includes(debouncedSearchTerm),
-    ).slice(0, 10);
-  }, [debouncedSearchTerm]);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const handleSelect = (districtId: string) => {
-    setIsOpen(false);
-    setSearchTerm("");
-    router.push(DYNAMIC_ROUTE_PATH.DETAIL(districtId));
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearchTerm(value);
-    if (value.length >= 2) {
-      setIsOpen(true);
-    } else {
-      setIsOpen(false);
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && results.length > 0) {
-      handleSelect(results[0].id);
-    }
-  };
+  const { searchTerm, isOpen, results, containerRef, handleSelect, handleChange, handleKeyDown, handleFocus } =
+    useLocationSearch();
 
   return (
     <div ref={containerRef} className='relative w-full max-w-50 md:max-w-none'>
@@ -66,7 +20,7 @@ export const LocationSearch = () => {
         value={searchTerm}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        onFocus={() => searchTerm.length >= 2 && setIsOpen(true)}
+        onFocus={handleFocus}
         className='w-full rounded-full border-none bg-muted py-2 pr-3 pl-9 text-xs font-medium text-muted-foreground placeholder:text-muted-foreground focus-visible:ring-0 md:py-2.5 md:pr-4 md:pl-12 md:text-sm'
       />
 

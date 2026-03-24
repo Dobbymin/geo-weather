@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
-
 import { HourlyForecastList, HourlyForecastTitle } from "../_components";
+import { useHourlyForecastSection } from "../_hooks/useHourlyForecastSection";
 
 type Props = {
   lat?: number;
@@ -10,11 +9,11 @@ type Props = {
 };
 
 export const HourlyForecastSection = ({ lat, lon }: Props) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const { isExpanded, handleToggleClick } = useHourlyForecastSection();
 
   return (
     <section aria-labelledby='hourly-forecast'>
-      <HourlyForecastTitle isExpanded={isExpanded} onToggle={() => setIsExpanded((prev) => !prev)} />
+      <HourlyForecastTitle isExpanded={isExpanded} onToggleClick={handleToggleClick} />
       <HourlyForecastList isExpanded={isExpanded} lat={lat} lon={lon} />
     </section>
   );

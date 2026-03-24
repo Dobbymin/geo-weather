@@ -3,6 +3,7 @@
 import { useGetFavorites } from "@/shared";
 
 import { useIsHydrated } from "../../../_hooks";
+
 import { FavoriteItemCard } from "./FavoriteItemCard";
 
 export const FavoritesList = () => {

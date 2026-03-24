@@ -5,7 +5,7 @@ type Props = {
 
 export const TitleText = ({ id, title }: Props) => {
   return (
-    <h2 id={id} className='text-foreground text-xl font-bold tracking-tight md:text-2xl'>
+    <h2 id={id} className='text-xl font-bold tracking-tight text-foreground md:text-2xl'>
       {title}
     </h2>
   );

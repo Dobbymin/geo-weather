@@ -1,15 +1,16 @@
 import { type WeatherStatus, getWeatherIcon } from "@/entities";
-import { Badge, cn } from "@/shared";
+import { Badge, Skeleton, cn } from "@/shared";
 import { MapPin } from "lucide-react";
 
 type Props = {
-  name: string;
-  temp: number;
-  status: WeatherStatus;
-  description: string;
-  lowTemp: number;
-  highTemp: number;
+  name?: string;
+  temp?: number;
+  status?: WeatherStatus;
+  description?: string;
+  lowTemp?: number;
+  highTemp?: number;
   isAutoDetected?: boolean;
+  isLoading?: boolean;
 };
 
 export const CurrentWeather = ({
@@ -20,13 +21,14 @@ export const CurrentWeather = ({
   lowTemp,
   highTemp,
   isAutoDetected = true,
+  isLoading = false,
 }: Props) => {
-  const { icon: WeatherIcon } = getWeatherIcon(status);
+  const { icon: WeatherIcon } = getWeatherIcon(status || "CLEAR");
 
   return (
     <div
       className={cn(
-        "gradient-primary relative flex w-full flex-col items-start overflow-hidden rounded-[40px] p-8 shadow-xl md:p-12",
+        "gradient-primary relative flex min-h-59 w-full flex-col items-start overflow-hidden rounded-[40px] p-8 shadow-xl md:min-h-69 md:p-12",
       )}
     >
       <div className='pointer-events-none absolute inset-0'>
@@ -49,29 +51,39 @@ export const CurrentWeather = ({
           )}
 
           <h2 className='text-2xl font-medium tracking-tight text-primary-foreground md:text-[36px] md:leading-10'>
-            {name}
+            {isLoading ? <Skeleton className='h-8 w-48 bg-white/20' /> : name}
           </h2>
 
-          <p className='text-base text-primary-foreground/90 md:text-lg'>{description}</p>
+          <div className='text-base text-primary-foreground/90 md:text-lg'>
+            {isLoading ? <Skeleton className='h-6 w-32 bg-white/20' /> : description}
+          </div>
 
           <div className='mt-2 flex items-center gap-4 text-sm text-primary-foreground md:mt-4'>
             <div className='flex items-center gap-1'>
               <span className='opacity-70'>최저</span>
-              <span className='font-bold'>{lowTemp}&#176;</span>
+              <span className='font-bold'>
+                {isLoading ? <Skeleton className='inline-block h-4 w-8 bg-white/20' /> : `${lowTemp}°`}
+              </span>
             </div>
             <div className='flex items-center gap-1'>
               <span className='opacity-70'>최고</span>
-              <span className='font-bold'>{highTemp}&#176;</span>
+              <span className='font-bold'>
+                {isLoading ? <Skeleton className='inline-block h-4 w-8 bg-white/20' /> : `${highTemp}°`}
+              </span>
             </div>
           </div>
         </div>
 
         <div className='flex items-center gap-4 self-end md:gap-8 md:self-auto'>
           <div className='size-16 text-primary-foreground md:size-22'>
-            <WeatherIcon className='size-full' />
+            {isLoading ? (
+              <Skeleton className='size-full rounded-full bg-white/20' />
+            ) : (
+              <WeatherIcon className='size-full' />
+            )}
           </div>
           <div className='font-display text-7xl font-extrabold tracking-[-3px] text-primary-foreground md:text-[128px] md:tracking-[-6.4px]'>
-            {temp}&#176;
+            {isLoading ? <Skeleton className='h-18 w-20 bg-white/20 md:h-32 md:w-34' /> : <>{temp}&#176;</>}
           </div>
         </div>
       </div>

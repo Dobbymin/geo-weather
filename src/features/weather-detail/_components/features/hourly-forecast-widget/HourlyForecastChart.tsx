@@ -1,7 +1,8 @@
 import { WeatherDetail } from "@/entities";
-import { ChartConfig, ChartContainer, ChartTooltip, Skeleton } from "@/shared";
+import { ChartContainer, ChartTooltip, Skeleton } from "@/shared";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
+import { useHourlyForecastChart } from "../../../_hooks/useHourlyForecastChart";
 import { CustomCursor, CustomTooltip } from "../../common";
 
 type Props = {
@@ -10,6 +11,8 @@ type Props = {
 };
 
 export const HourlyForecastChart = ({ data, isLoading }: Props) => {
+  const { chartConfig, chartData, chartMinWidth } = useHourlyForecastChart(data);
+
   if (isLoading || !data) {
     return (
       <div className='relative mt-4 h-[300px] rounded-xl border border-border/40 bg-muted/20 p-4'>
@@ -25,7 +28,7 @@ export const HourlyForecastChart = ({ data, isLoading }: Props) => {
           ))}
         </div>
 
-        <div className='absolute right-6 bottom-4 left-12 flex justify-between w-[calc(100%-80px)]'>
+        <div className='absolute right-6 bottom-4 left-12 flex w-[calc(100%-80px)] justify-between'>
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className='flex flex-col items-center gap-1'>
               <Skeleton className='h-2 w-6' />
@@ -37,46 +40,19 @@ export const HourlyForecastChart = ({ data, isLoading }: Props) => {
       </div>
     );
   }
-  const chartConfig = {
-    temp: {
-      label: "기온",
-      color: "#b8c5ff",
-    },
-    pop: {
-      label: "강수",
-      color: "#c4efff",
-    },
-  } satisfies ChartConfig;
-
-  const chartData = data.hourlyForecast.map((item) => {
-    const timeParts = item.time.split(" ");
-    const ampm = timeParts[0];
-    const hour = timeParts[1]?.split(":")[0];
-    const day = item.date.split("/")[1];
-
-    return {
-      ...item,
-      displayTime: `${item.time}`,
-      ampm,
-      hour,
-      day,
-    };
-  });
-
-  const CHART_MIN_WIDTH = data.hourlyForecast.length * 44 + 32;
 
   return (
     <div
       className='relative mt-4'
       style={{
-        minWidth: `${CHART_MIN_WIDTH}px`,
+        minWidth: `${chartMinWidth}px`,
         height: "300px",
       }}
     >
       <ChartContainer
         config={chartConfig}
         className='h-full w-full'
-        initialDimension={{ width: CHART_MIN_WIDTH, height: 300 }}
+        initialDimension={{ width: chartMinWidth, height: 300 }}
       >
         <BarChart data={chartData} margin={{ top: 40, right: 0, left: 0, bottom: 60 }} barGap={4}>
           <CartesianGrid vertical={false} strokeDasharray='3 3' className='stroke-foreground/10' />
@@ -114,7 +90,6 @@ export const HourlyForecastChart = ({ data, isLoading }: Props) => {
             ticks={[0, 10, 20, 30, 40]}
           />
 
-          {/* <ChartTooltip content={<CustomTooltip />}  /> */}
           <ChartTooltip content={<CustomTooltip />} cursor={<CustomCursor />} />
           <Bar
             dataKey='temp'

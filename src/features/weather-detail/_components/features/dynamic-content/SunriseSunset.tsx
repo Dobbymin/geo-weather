@@ -1,5 +1,5 @@
-import { Moon, Sun } from "lucide-react";
 import { Skeleton } from "@/shared";
+import { Moon, Sun } from "lucide-react";
 
 type Props = {
   sunrise?: string;

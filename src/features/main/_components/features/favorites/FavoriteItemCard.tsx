@@ -1,8 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
-import { useWeatherDetail } from "@/entities";
 import {
   Button,
   Dialog,
@@ -14,10 +11,9 @@ import {
   FavoriteItem,
   Input,
   Label,
-  useRemoveFavorite,
-  useUpdateAlias,
 } from "@/shared";
 
+import { useFavoriteItem } from "../../../_hooks/useFavoriteItem";
 import { FavoritesCard } from "../../common";
 
 type Props = {
@@ -25,12 +21,18 @@ type Props = {
 };
 
 export const FavoriteItemCard = ({ item }: Props) => {
-  const { data, isLoading } = useWeatherDetail(item.id);
-  const removeFavorite = useRemoveFavorite();
-  const updateAlias = useUpdateAlias();
-
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [aliasInput, setAliasInput] = useState(item.alias || "");
+  const {
+    data,
+    isLoading,
+    isDialogOpen,
+    setIsDialogOpen,
+    aliasInput,
+    setAliasInput,
+    handleDelete,
+    handleEditClick,
+    handleSaveAlias,
+    closeDialog,
+  } = useFavoriteItem(item);
 
   if (isLoading || !data) {
     return (
@@ -39,24 +41,6 @@ export const FavoriteItemCard = ({ item }: Props) => {
       </div>
     );
   }
-
-  const handleDelete = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    removeFavorite(item.id);
-  };
-
-  const handleEditClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setAliasInput(item.alias || "");
-    setIsDialogOpen(true);
-  };
-
-  const handleSaveAlias = () => {
-    updateAlias(item.id, aliasInput);
-    setIsDialogOpen(false);
-  };
 
   return (
     <>
@@ -68,8 +52,8 @@ export const FavoriteItemCard = ({ item }: Props) => {
         condition={data.condition}
         high={data.highTemp}
         low={data.lowTemp}
-        onDeleteAction={handleDelete}
-        onEditAction={handleEditClick}
+        onDeleteClick={handleDelete}
+        onEditClick={handleEditClick}
       />
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -104,7 +88,7 @@ export const FavoriteItemCard = ({ item }: Props) => {
             </div>
           </div>
           <DialogFooter className='px-4 py-3'>
-            <Button variant='ghost' onClick={() => setIsDialogOpen(false)}>
+            <Button variant='ghost' onClick={closeDialog}>
               취소
             </Button>
             <Button onClick={handleSaveAlias}>저장</Button>
