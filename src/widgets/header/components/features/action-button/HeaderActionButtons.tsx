@@ -2,7 +2,7 @@
 
 import { Button, useAddFavorite, useCheckIsFavorite, useRemoveFavorite } from "@/shared";
 import { cn } from "@/shared";
-import { Settings, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { toast } from "sonner";
 
 type Props = {
@@ -48,13 +48,6 @@ export const HeaderActionButtons = ({ locationId, locationName }: Props) => {
           <Star size={20} className={cn(isFav && "fill-current")} />
         </Button>
       )}
-      <Button
-        variant='ghost'
-        size='icon'
-        className='size-10 rounded-full text-muted-foreground transition-all active:scale-95'
-      >
-        <Settings size={20} />
-      </Button>
     </div>
   );
 };

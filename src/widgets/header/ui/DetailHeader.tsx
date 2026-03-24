@@ -1,11 +1,10 @@
 import Link from "next/link";
 
 import { useWeatherDetail } from "@/entities";
-import { LocationSearch } from "@/features";
 import { Button, ROUTE_PATH, Skeleton } from "@/shared";
 import { ChevronLeft } from "lucide-react";
 
-import { HeaderActionButtons } from "../common";
+import { HeaderActionButtons, LocationSearch } from "../components";
 
 type Props = {
   locationId: string;
