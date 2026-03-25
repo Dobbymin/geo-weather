@@ -1,16 +1,8 @@
 services:
-  geo-weather:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  app:
+    build: .
     container_name: geo-weather-app
-    restart: always
+    restart: unless-stopped
+    env_file: .env
     ports:
       - "3000:3000"
-    env_file:
-      - .env
-    environment:
-      - NODE_ENV=production
-      - NEXT_TELEMETRY_DISABLED=1
-      - PORT=3000
-      - HOSTNAME=0.0.0.0
