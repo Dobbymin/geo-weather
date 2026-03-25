@@ -42,7 +42,7 @@ src/
 ├── app/                      # Next.js App Router (페이지, API Route)
 │   ├── api/weather/          # OpenWeatherMap 현재 날씨 프록시
 │   ├── api/forecast/         # OpenWeatherMap 5일 예보 프록시
-│   ├── api/location/         # Kakao Local API 역지오코딩 프록시
+│   ├── api/location/         # 위치 관련 API (검색, 상세, 역지오코딩)
 │   └── detail/[locationId]/  # 날씨 상세 페이지
 │
 ├── entities/                 # 핵심 도메인 모델
@@ -219,6 +219,27 @@ pnpm dev
 ```bash
 pnpm build
 pnpm start
+```
+
+### 🐳 Docker 배포
+
+#### 사전 요구사항
+
+```ts
+// next.config.ts
+const nextConfig = {
+  output: 'standalone',
+};
+```
+
+#### 이미지 빌드 및 실행
+
+```bash
+# 이미지 빌드
+docker build -t geo-weather .
+
+# 컨테이너 실행 (.env 파일을 런타임에 주입)
+docker run -p 3000:3000 --env-file .env geo-weather
 ```
 
 브라우저에서 [http://localhost:3000](http://localhost:3000) 접속
