@@ -6,7 +6,7 @@ import { Search } from "lucide-react";
 import { useLocationSearch } from "../../../_hooks/useLocationSearch";
 
 export const LocationSearch = () => {
-  const { searchTerm, isOpen, results, containerRef, handleSelect, handleChange, handleKeyDown, handleFocus } =
+  const { searchTerm, isOpen, results, isLoading, containerRef, handleSelect, handleChange, handleKeyDown, handleFocus } =
     useLocationSearch();
 
   return (
@@ -26,7 +26,12 @@ export const LocationSearch = () => {
 
       {isOpen && (
         <div className='absolute top-full left-0 z-50 mt-2 max-h-60 w-full overflow-y-auto rounded-xl border border-slate-200 bg-white p-2 shadow-lg'>
-          {results.length > 0 ? (
+          {isLoading ? (
+            <div className='flex items-center justify-center px-4 py-3 text-sm text-slate-500'>
+              <div className='mr-2 h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-slate-600' />
+              검색 중...
+            </div>
+          ) : results.length > 0 ? (
             results.map((district) => (
               <button
                 key={district.id}

@@ -1,8 +1,9 @@
 import { useRouter } from "next/navigation";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useRef, useState } from "react";
 
-import { KOREA_DISTRICTS_WITH_COORDS } from "@/entities";
+import { District } from "@/entities";
 import { DYNAMIC_ROUTE_PATH, useDebounce } from "@/shared";
 
 export const useLocationSearch = () => {
@@ -12,13 +13,16 @@ export const useLocationSearch = () => {
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const results = useMemo(() => {
-    if (debouncedSearchTerm.length < 2) return [];
-
-    return KOREA_DISTRICTS_WITH_COORDS.filter(
-      (district) => district.fullName.includes(debouncedSearchTerm) || district.name.includes(debouncedSearchTerm),
-    ).slice(0, 10);
-  }, [debouncedSearchTerm]);
+  const { data: results = [], isLoading } = useQuery<District[]>({
+    queryKey: ["location-search", debouncedSearchTerm],
+    queryFn: async () => {
+      if (debouncedSearchTerm.length < 2) return [];
+      const res = await fetch(`/api/location/search?q=${encodeURIComponent(debouncedSearchTerm)}`);
+      if (!res.ok) return [];
+      return res.json();
+    },
+    enabled: debouncedSearchTerm.length >= 2,
+  });
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -47,7 +51,7 @@ export const useLocationSearch = () => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && results.length > 0) {
+    if (e.key === "Enter" && results && results.length > 0) {
       handleSelect(results[0].id);
     }
   };
@@ -63,6 +67,7 @@ export const useLocationSearch = () => {
     isOpen,
     setIsOpen,
     results,
+    isLoading,
     containerRef,
     handleSelect,
     handleChange,
