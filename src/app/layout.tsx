@@ -27,8 +27,59 @@ const pretendard = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Geo Weather",
-  description: "High-End Editorial Weather Service",
+  metadataBase: new URL("https://weather.dobbymin.cloud"),
+  title: {
+    default: "Geo Weather - High-End Editorial Weather Service",
+    template: "%s | Geo Weather",
+  },
+  description: "위치 기반의 고품격 에디토리얼 날씨 서비스, Geo Weather에서 실시간 날씨와 예보를 확인하세요.",
+  keywords: ["날씨", "기상", "Geo Weather", "실시간 날씨", "날씨 예보", "위치 기반 날씨"],
+  authors: [{ name: "Geo Weather Team" }],
+  creator: "Geo Weather",
+  publisher: "Geo Weather",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    title: "Geo Weather",
+    description: "위치 기반의 고품격 에디토리얼 날씨 서비스",
+    url: "https://weather.dobbymin.cloud",
+    siteName: "Geo Weather",
+    locale: "ko_KR",
+    type: "website",
+    images: [
+      {
+        url: "/og-img.png",
+        width: 1200,
+        height: 630,
+        alt: "Geo Weather - High-End Editorial Weather Service",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Geo Weather",
+    description: "위치 기반의 고품격 에디토리얼 날씨 서비스",
+    images: ["/og-img.png"],
+  },
+  icons: {
+    icon: "/logo.svg",
+    shortcut: "/logo.svg",
+    apple: "/logo.svg",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
