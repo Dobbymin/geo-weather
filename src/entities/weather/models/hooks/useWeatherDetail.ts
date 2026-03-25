@@ -1,8 +1,9 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 
-import { KOREA_DISTRICTS_WITH_COORDS } from "@/entities/location/models/constants/korea-districts-with-coords";
+import { District } from "@/entities/location/models/@types";
 
 import { WeatherDetail } from "../@types";
 
@@ -19,14 +20,17 @@ export function useWeatherDetail(locationId: string): { data: WeatherDetail | nu
     }
   }, [locationId]);
 
-  // 행정구역 좌표 정보 찾기 (ID로 먼저 찾고, 없으면 fullName으로 검색)
-  const district = useMemo(() => {
-    const foundById = KOREA_DISTRICTS_WITH_COORDS.find((d) => d.id === decodedId);
-    if (foundById) return foundById;
-
-    // ID 매칭 실패 시 이름으로 한 번 더 시도 (URL 인코딩/디코딩 변수 대응)
-    return KOREA_DISTRICTS_WITH_COORDS.find((d) => d.fullName === decodedId.replace(/-/g, " "));
-  }, [decodedId]);
+  // 행정구역 좌표 정보 가져오기 (API 호출)
+  const { data: district, isLoading: isDistrictLoading } = useQuery<District>({
+    queryKey: ["location-detail", decodedId],
+    queryFn: async () => {
+      if (!decodedId) return null;
+      const res = await fetch(`/api/location/detail?id=${encodeURIComponent(decodedId)}`);
+      if (!res.ok) return null;
+      return res.json();
+    },
+    enabled: !!decodedId,
+  });
 
   const hasCoords = !!district?.lat && !!district?.lng;
 
@@ -50,12 +54,12 @@ export function useWeatherDetail(locationId: string): { data: WeatherDetail | nu
     lon: district?.lng || 0,
   });
 
-  const isLoading = isCurrentLoading || isForecastLoading;
+  const isLoading = isDistrictLoading || isCurrentLoading || isForecastLoading;
   const isError = isCurrentError || isForecastError;
 
   // 데이터 가공 및 결합
   const combinedData: WeatherDetail | null = useMemo(() => {
-    if (!hasCoords || !current || !forecast || isError) return null;
+    if (!hasCoords || !district || !current || !forecast || isError) return null;
 
     return {
       locationName: district.fullName,
@@ -82,7 +86,7 @@ export function useWeatherDetail(locationId: string): { data: WeatherDetail | nu
       }),
       hourlyForecast: forecast.hourly,
     };
-  }, [hasCoords, current, forecast, isError, district]);
+  }, [hasCoords, district, current, forecast, isError]);
 
   return { data: combinedData, isLoading };
 }

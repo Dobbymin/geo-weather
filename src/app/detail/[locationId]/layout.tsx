@@ -1,4 +1,4 @@
-import { resolveLocationName } from "@/entities";
+import { resolveLocationName } from "@/entities/location/models/utils/resolveLocationName";
 import { DetailHeader } from "@/widgets";
 
 export default async function DetailLayout({
