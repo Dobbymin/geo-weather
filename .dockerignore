@@ -1,0 +1,34 @@
+# 의존성
+node_modules
+.pnpm-store
+
+# Next.js 빌드 산출물
+.next
+out
+
+# 환경 변수 (보안)
+.env
+.env.*
+!.env.example
+
+# 개발 도구
+.git
+.gitignore
+.github
+.vscode
+.idea
+.editorconfig
+.eslintcache
+
+# 로컬 스크립트
+scripts/
+
+# 문서
+*.md
+
+# 기타
+.DS_Store
+*.log
+Dockerfile
+.dockerignore
+docker-compose*.yml
