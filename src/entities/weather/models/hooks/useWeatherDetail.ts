@@ -1,7 +1,8 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
+
+import { useQuery } from "@tanstack/react-query";
 
 import { District } from "@/entities/location/models/@types";
 
@@ -11,7 +12,6 @@ import { useGetCurrentWeather } from "./useGetCurrentWeather";
 import { useGetHourlyForecast } from "./useGetHourlyForecast";
 
 export function useWeatherDetail(locationId: string): { data: WeatherDetail | null; isLoading: boolean } {
-  // locationId normalization
   const decodedId = useMemo(() => {
     try {
       return decodeURIComponent(locationId).normalize("NFC");
@@ -21,12 +21,18 @@ export function useWeatherDetail(locationId: string): { data: WeatherDetail | nu
   }, [locationId]);
 
   // 행정구역 좌표 정보 가져오기 (API 호출)
-  const { data: district, isLoading: isDistrictLoading } = useQuery<District>({
+  const {
+    data: district,
+    isLoading: isDistrictLoading,
+    isError: isDistrictError,
+  } = useQuery<District>({
     queryKey: ["location-detail", decodedId],
     queryFn: async () => {
       if (!decodedId) return null;
       const res = await fetch(`/api/location/detail?id=${encodeURIComponent(decodedId)}`);
-      if (!res.ok) return null;
+      if (!res.ok) {
+        throw new Error("행정구역 정보를 가져오는데 실패했습니다.");
+      }
       return res.json();
     },
     enabled: !!decodedId,
@@ -55,7 +61,7 @@ export function useWeatherDetail(locationId: string): { data: WeatherDetail | nu
   });
 
   const isLoading = isDistrictLoading || isCurrentLoading || isForecastLoading;
-  const isError = isCurrentError || isForecastError;
+  const isError = isDistrictError || isCurrentError || isForecastError;
 
   // 데이터 가공 및 결합
   const combinedData: WeatherDetail | null = useMemo(() => {
