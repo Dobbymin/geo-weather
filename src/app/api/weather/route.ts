@@ -39,11 +39,13 @@ export async function GET(request: NextRequest) {
         hour: "2-digit",
         minute: "2-digit",
         hour12: true,
+        timeZone: "Asia/Seoul",
       }),
       sunset: new Date(data.sys.sunset * 1000).toLocaleTimeString("ko-KR", {
         hour: "2-digit",
         minute: "2-digit",
         hour12: true,
+        timeZone: "Asia/Seoul",
       }),
       visibility: data.visibility / 1000,
       pressure: data.main.pressure,

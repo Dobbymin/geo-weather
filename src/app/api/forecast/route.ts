@@ -29,11 +29,13 @@ export async function GET(request: NextRequest) {
       time: new Date(item.dt * 1000).toLocaleTimeString("ko-KR", {
         hour: "2-digit",
         minute: "2-digit",
+        timeZone: "Asia/Seoul",
       }),
       date: new Date(item.dt * 1000)
         .toLocaleDateString("ko-KR", {
           month: "numeric",
           day: "numeric",
+          timeZone: "Asia/Seoul",
         })
         .replace(/\. /g, "/")
         .replace(".", ""),
@@ -51,6 +53,7 @@ export async function GET(request: NextRequest) {
         .toLocaleDateString("ko-KR", {
           month: "numeric",
           day: "numeric",
+          timeZone: "Asia/Seoul",
         })
         .replace(/\. /g, "/")
         .replace(".", "");
