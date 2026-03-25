@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import { useGetCurrentWeather, useGetLocation } from "@/entities";
+import { useGetCurrentWeather, useGetHourlyForecast, useGetLocation } from "@/entities";
 import { toast } from "sonner";
 
 type Params = {
@@ -12,6 +12,7 @@ type Params = {
 
 export const useWeatherInformation = ({ lat, lon, isGeoLocationLoading, geoLocationError }: Params) => {
   const { data: currentWeatherData, isPending, isError } = useGetCurrentWeather({ lat: lat!, lon: lon! });
+  const { data: forecastData, isPending: isForecastPending } = useGetHourlyForecast({ lat: lat!, lon: lon! });
 
   const { data: locationData, isPending: isLocationPending } = useGetLocation({ lat: lat!, lon: lon! });
 
@@ -21,11 +22,19 @@ export const useWeatherInformation = ({ lat, lon, isGeoLocationLoading, geoLocat
     }
   }, [geoLocationError]);
 
-  const isLoading = isGeoLocationLoading || isPending || isLocationPending;
+  const mergedWeatherData = currentWeatherData
+    ? {
+        ...currentWeatherData,
+        lowTemp: forecastData?.daily?.[0]?.lowTemp ?? currentWeatherData.lowTemp,
+        highTemp: forecastData?.daily?.[0]?.highTemp ?? currentWeatherData.highTemp,
+      }
+    : currentWeatherData;
+
+  const isLoading = isGeoLocationLoading || isPending || isLocationPending || isForecastPending;
   const isInformationError = isError || !!geoLocationError || (!currentWeatherData && !isLoading);
 
   return {
-    currentWeatherData,
+    currentWeatherData: mergedWeatherData,
     locationData,
     isLoading,
     isError: isInformationError,

@@ -62,13 +62,13 @@ export const CurrentWeather = ({
             <div className='flex items-center gap-1'>
               <span className='opacity-70'>최저</span>
               <span className='font-bold'>
-                {isLoading ? <Skeleton className='inline-block h-4 w-8 bg-white/20' /> : `${lowTemp}°`}
+                {isLoading ? <Skeleton className='inline-block h-4 w-8 bg-white/20' /> : `${lowTemp}°C`}
               </span>
             </div>
             <div className='flex items-center gap-1'>
               <span className='opacity-70'>최고</span>
               <span className='font-bold'>
-                {isLoading ? <Skeleton className='inline-block h-4 w-8 bg-white/20' /> : `${highTemp}°`}
+                {isLoading ? <Skeleton className='inline-block h-4 w-8 bg-white/20' /> : `${highTemp}°C`}
               </span>
             </div>
           </div>
