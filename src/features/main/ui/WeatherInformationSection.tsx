@@ -1,9 +1,9 @@
 "use client";
 
-import { Skeleton } from "@/shared";
+import { useIsHydrated } from "@/shared";
 
 import { CurrentWeather, WeatherInformationTitle } from "../_components";
-import { useIsHydrated, useWeatherInformation } from "../_hooks";
+import { useWeatherInformation } from "../_hooks";
 
 type Props = {
   lat?: number;
@@ -33,22 +33,15 @@ export const WeatherInformationSection = ({ lat, lon, isGeoLocationLoading, geoL
     );
   }
 
-  if (!isHydrated) {
-    return (
-      <section aria-labelledby='weather-information'>
-        <WeatherInformationTitle />
-        <div className='relative'>
-          <Skeleton className='h-59 w-full rounded-[40px] md:h-69' />
-        </div>
-      </section>
-    );
-  }
-
+  // 서버와 클라이언트의 첫 렌더링을 완전히 일치시킵니다.
+  // CurrentWeather 내부에서 isLoading을 처리하더라도,
+  // 구조적 일관성을 위해 마운트 전에는 가장 단순한 형태를 유지하거나
+  // 혹은 동일한 컴포넌트를 isLoading=true로 렌더링합니다.
   return (
     <section aria-labelledby='weather-information'>
       <WeatherInformationTitle />
       <CurrentWeather
-        isLoading={isLoading}
+        isLoading={!isHydrated || isLoading}
         name={locationData?.locationName}
         temp={currentWeatherData?.temp}
         status={currentWeatherData?.status}

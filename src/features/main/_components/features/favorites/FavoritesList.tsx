@@ -1,8 +1,6 @@
 "use client";
 
-import { useGetFavorites } from "@/shared";
-
-import { useIsHydrated } from "../../../_hooks";
+import { useGetFavorites, useIsHydrated } from "@/shared";
 
 import { FavoriteItemCard } from "./FavoriteItemCard";
 

@@ -1,7 +1,7 @@
 "use client";
 
-import { WeatherStatus } from "@/entities";
-import { cn } from "@/shared";
+import { HourlyForecastData, WeatherStatus } from "@/entities";
+import { cn, useIsHydrated } from "@/shared";
 
 import { useHourlyForecastList } from "../../../_hooks";
 import { HourlyForecastCard } from "../../common";
@@ -13,21 +13,10 @@ type Props = {
 };
 
 export const HourlyForecastList = ({ isExpanded, lat, lon }: Props) => {
+  const isHydrated = useIsHydrated();
   const { displayedForecast, isPending, isError } = useHourlyForecastList({ isExpanded, lat, lon });
 
-  if (isPending) {
-    return (
-      <div className='w-full'>
-        <div
-          className={cn("scrollbar-hide pt-1 pb-4", isExpanded ? "flex flex-wrap gap-4" : "flex gap-4 overflow-x-auto")}
-        >
-          {Array.from({ length: 8 }).map((_, i) => (
-            <HourlyForecastCard key={`skeleton-${i}`} isLoading />
-          ))}
-        </div>
-      </div>
-    );
-  }
+  const isLoading = !isHydrated || isPending;
 
   if (isError) {
     return (
@@ -39,21 +28,31 @@ export const HourlyForecastList = ({ isExpanded, lat, lon }: Props) => {
     );
   }
 
+  const items = isLoading ? Array.from({ length: 8 }) : displayedForecast;
+
   return (
     <div className='w-full'>
       <div
         className={cn("scrollbar-hide pt-1 pb-4", isExpanded ? "flex flex-wrap gap-4" : "flex gap-4 overflow-x-auto")}
       >
-        {displayedForecast.map((item, index) => (
-          <HourlyForecastCard
-            key={`${item.dt}-${index}`}
-            date={item.date}
-            time={item.time}
-            temp={item.temp}
-            status={item.status as WeatherStatus}
-            isActive={index === 0}
-          />
-        ))}
+        {items.map((item, index) => {
+          if (isLoading) {
+            return <HourlyForecastCard key={`skeleton-${index}`} isLoading />;
+          }
+
+          const forecastItem = item as HourlyForecastData;
+
+          return (
+            <HourlyForecastCard
+              key={`${forecastItem.dt}-${index}`}
+              date={forecastItem.date}
+              time={forecastItem.time}
+              temp={forecastItem.temp}
+              status={forecastItem.status as WeatherStatus}
+              isActive={index === 0}
+            />
+          );
+        })}
       </div>
     </div>
   );
